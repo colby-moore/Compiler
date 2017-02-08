@@ -1,0 +1,14 @@
+.container{
+  text-align: center;
+}
+
+  .container h2{
+    border-bottom: 3px solid #efefef;
+  }
+  .box1{
+    margin-left: 0px;
+  }
+
+  .box2{
+    margin-left: 0px;
+  }
