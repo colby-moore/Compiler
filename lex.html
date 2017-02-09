@@ -3,7 +3,7 @@
 
 function tokenizer(input){
     var current = 0;
-    var token = [];
+    var tokens = [];
 
     while( current < input.length){
         var char = input[current];
@@ -29,12 +29,190 @@ function tokenizer(input){
       var T_Digit = /[0-9]/;
       var T_Char = /[a-z]/;
       var T_Eol = /[$]/;
-      var {/*this is whitespace*/} =  /[whitespace]/;
+      var ws =  /[""]/;
     }
 }
 
+var newToken = class {
+    constructor(desc, type, line_number){
+      this.desc = desc;
+      this.type = type;
+      this.line_number = line_number;
+    }
+}
 
+function findToken(space, line_number) {
 
+    switch(space) {
+        case '{':
+            newToken(tokens.T_LBracket,space,line_number);
+            return true;
+        case '}':
+            newToken(tokens.T_RBracket,space,line_number);
+            return true;
+        case '(':
+            newToken(tokens.T_LParen,space,line_number);
+            return true;
+        case ')':
+            newToken(tokens.T_RParen,space,line_number);
+            return true;
+        case '+':
+            newToken(tokens.T_Plus,space,line_number);
+            return true;
+        case '==':
+            newToken(tokens.T_Equals,space,line_number);
+            return true;
+        case '!=':
+            newToken(tokens.T_Notequal,space,line_number);
+            return true;
+        case '=':
+            newToken(tokens.T_Assign,space,line_number);
+            return true;
+        case '"':
+            newToken(tokens.T_Quote,space,line_number);
+            return true;
+        case 'true':
+            newToken(tokens.T_True,space,line_number);
+            return true;
+        case 'false':
+            newToken(tokens.T_False,space,line_number);
+            return true;
+        case 'int':
+            newToken(tokens.T_Int,space,line_number);
+            return true;
+        case 'String':
+            newToken(tokens.T_String,space,line_number);
+            return true;
+        case 'while':
+            newToken(tokens.T_While,space,line_number);
+            return true;
+        case 'if':
+            newToken(tokens.T_If,space,line_number);
+            return true;
+        case 'print':
+            newToken(tokens.T_Print,space,line_number);
+            return true;
+        case '$':
+            newToken(tokens.T_Eol,space,line_number);
+            return true;
+            break;
+
+    }
+    return false;
+}
+// function LBracket (case 0){
+//     if input[current] = /[{]/
+//       return token(T_LBracket);
+// }
+//
+// function RBracket (case 1){
+//     if input[current] = /[}]/
+//       return token(T_RBracket);
+// }
+//
+// function LParen (case 2){
+//     if input[current] = /[(]/
+//       return token(T_LParen);
+// }
+//
+// function RParen (case 3){
+//     if input[current] = /[)]/
+//       return token(T_RParen);
+// }
+//
+// function Plus (case 4){
+//     if input[current] = /[+]/
+//       return token(T_Plus);
+// }
+//
+// function Equals (case 5){
+//     if input[current] = /[==]/
+//       return token(T_Equals);
+// }
+//
+// function Notequal (case 6){
+//     if input[current] = /[!=]/
+//       return token(T_Notequals);
+// }
+//
+// function Assign (case 7){
+//     if input[current] = /[=]/
+//       return token(T_Assign);
+// }
+//
+// function Quote (case 8){
+//     if input[current] = /["]/
+//       return token(T_Quote);
+// }
+//
+// function True (case 9){
+//     if input[current] = /[true]/
+//       return token(T_True);
+// }
+//
+// function False (case 10){
+//     if input[current] = /[false]/
+//       return token(T_False);
+// }
+//
+// function Int (case 11){
+//     if input[current] = /[int]/
+//       return token(T_Int);
+// }
+//
+// function String (case 12){
+//     if input[current] = /[string]/
+//       return token(T_String);
+// }
+//
+// function While (case 13){
+//     if input[current] = /[while]/
+//       return token(T_While);
+// }
+//
+// function If (case 14){
+//     if input[current] = /[if]/
+//       return token(T_If);
+// }
+//
+// function Print (case 15){
+//     if input[current] = /[print]/
+//       return token(T_Print);
+// }
+//
+// function Digit (case 16){
+//     if input[current] = /[0-9]/
+//       return token(T_Digit);
+// }
+//
+// function Char (case 17){
+//     if input[current] = /[a-z]/
+//       return token(T_Char);
+// }
+//
+// function Eol (case 18){
+//     if input[current] = /[$]/
+//       return token(T_Quote);
+// }
+//
+// function ws (case 19){
+//     if input[current] = /[""]/
+//       return token(T_ws);
+// }
+//
+// var LBracket = /[{]/;
+
+// if(space.length == 1 && space.match(/[a-z]/)) {
+//     newToken(tokens.T_Char,space,line_number); //we've found an identifier (string chars handled elsewhere)
+//     return true;
+// }
+//
+// if(space.length == 1 && space.match(/[0-9]/)) {
+//     newToken(tokens.T_Digit,space,line_number);
+//     return true;
+// }
+
+  console.log(LBracket);
   console.log(5 + 6);
   console.log("hey its me");
 </script>
