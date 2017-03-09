@@ -5,22 +5,28 @@
     <title>compiler</title>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+    <script src="lex.js"></script>
 
   </head>
   <body>
     <div class="container">
       <h2>This is a compiler! Sort of.....</h2>
-      <div class="hi col-md-4"></div>
-      <form>
+      <div class="hi col-md-1"></div>
+
         <div class="form-group box2 col-md-4">
-          <label for="comment">lexmeme2:</label>
+          <label for="comment">Input:</label>
           <textarea id="input" class="form-control" rows="5" style="resize: none" placeholder="Input text..."></textarea>
         </div>
-      </form>
-      <div class="hi col-md-4"></div>
+      <div class="hi col-md-2"></div>
+        <div class="form-group box2 col-md-4">
+          <label for="comment">Output:</label>
+          <textarea id="output" class="form-control" rows="5" style="resize: none" placeholder="Output text..."></textarea>
+        </div>
+      <div class="hi col-md-1"></div>
     </div>
+    <div class="col md-12"><button class="clickMe" onclick="lexer()">Click me</button></div>
+
 
 
     <!-- jQuery -->
