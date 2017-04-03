@@ -114,6 +114,7 @@ function checkForMultiChars (newToken, forward, input_text){
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
           // console.log("got an identifier")
           foundTokens = [];
+          tokenCheck = true;
           run = false;
           break;
         }
@@ -133,6 +134,7 @@ function checkForMultiChars (newToken, forward, input_text){
           // console.log('found a token boss');
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
           foundTokens = [];
+          tokenCheck = true;
           run = false;
           break;
         }
@@ -145,6 +147,7 @@ function checkForMultiChars (newToken, forward, input_text){
           // console.log('found a token boss');
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
           foundTokens = [];
+          tokenCheck = true;
           run = false;
           break;
         }
@@ -157,6 +160,7 @@ function checkForMultiChars (newToken, forward, input_text){
           // console.log('found a token boss');
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
           foundTokens = [];
+          tokenCheck = true;
           run = false;
           break;
         }
@@ -169,6 +173,7 @@ function checkForMultiChars (newToken, forward, input_text){
           // console.log('found a token boss');
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
           foundTokens = [];
+          tokenCheck = true;
           run = false;
           break;
         }
@@ -181,6 +186,7 @@ function checkForMultiChars (newToken, forward, input_text){
           // console.log('found a token boss');
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
           foundTokens = [];
+          tokenCheck = true;
           run = false;
           break;
         }
@@ -193,6 +199,7 @@ function checkForMultiChars (newToken, forward, input_text){
           // console.log('found a token boss');
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
           foundTokens = [];
+          tokenCheck = true;
           run = false;
           break;
         }
@@ -205,6 +212,7 @@ function checkForMultiChars (newToken, forward, input_text){
           // console.log('found a token boss');
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
           foundTokens = [];
+          tokenCheck = true;
           run = false;
           break;
         }
@@ -259,6 +267,7 @@ function checkForSymbolTokens(newToken, forward, input_text){
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
         foundTokens = [];
+        tokenCheck = true;
         run = false;
         break;
       }
@@ -269,6 +278,7 @@ function checkForSymbolTokens(newToken, forward, input_text){
         // console.log('found a token boss' + tempToken);
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
         foundTokens = [];
+        tokenCheck = true;
         // console.log("got an assign")
         run = false;
         break;
@@ -285,6 +295,7 @@ function checkForSymbolTokens(newToken, forward, input_text){
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
         foundTokens = [];
+        tokenCheck = true;
         run = false;
         break;
       }
