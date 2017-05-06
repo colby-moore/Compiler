@@ -7,25 +7,31 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
     <script src="lex.js"></script>
+    <script src="parser.js"></script>
 
   </head>
   <body>
     <div class="container">
       <h2>This is a compiler! Sort of.....</h2>
       <div class="hi col-md-1"></div>
-
         <div class="form-group box2 col-md-4">
           <label for="comment">Input:</label>
           <textarea id="input" class="form-control" rows="5" style="resize: none" placeholder="Input text..."></textarea>
         </div>
       <div class="hi col-md-2"></div>
         <div class="form-group box2 col-md-4">
-          <label for="comment">Output:</label>
+          <label for="comment">Lex:</label>
           <textarea id="output" class="form-control" rows="5" style="resize: none" placeholder="Output text..."></textarea>
         </div>
       <div class="hi col-md-1"></div>
+      <div class="hi col-md-2"></div>
+        <div class="form-group box2 col-md-4">
+          <label for="comment">Parse:</label>
+          <textarea id="parse" class="form-control" rows="5" style="resize: none" placeholder="Output text..."></textarea>
+        </div>
     </div>
-    <div class="col md-12"><button class="clickMe" onclick="lexer()">Click me</button></div>
+    <div class="col-md-6"><button class="clickMe" onclick="lexerRun()">Lex</button></div>
+    <div class="col-md-6"><button class="clickMe" onclick="parse()">Parse</button></div>
 
 
 
@@ -35,4 +41,45 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
   </body>
+
+  <!-- <script>
+  function Node(value) {
+
+      this.value = value;
+      this.children = [];
+      this.parent = null;
+
+      this.setParentNode = function(node) {
+          this.parent = node;
+      }
+
+      this.getParentNode = function() {
+          return this.parent;
+      }
+
+      this.addChild = function(node) {
+          node.setParentNode(this);
+          this.children[this.children.length] = node;
+      }
+
+      this.getChildren = function() {
+          return this.children;
+      }
+
+      this.removeChildren = function() {
+          this.children = [];
+      }
+  }
+
+  var root = new Node('root');
+  root.addChild(new Node('child 0'));
+  root.addChild(new Node('child 1'));
+  var children = root.getChildren();
+  for(var i = 0; i < children.length; i++) {
+      for(var j = 0; j < 5; j++) {
+          children[i].addChild(new Node('second level child ' + j));
+      }
+  }
+  console.log(root);
+  </script> -->
 </html>
