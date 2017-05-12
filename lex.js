@@ -119,32 +119,45 @@ function checkForMultiChars (newToken, forward, input_text){
       }
       case 1:
       console.log('this is the current character at case 1' + input_text[forward]);
-
+      if (input_text[forward] == undefined) {
         // console.log('this is the current character at case 1' + input_text[forward]);
-          if ((input_text[forward]).search(T_Char) != -1 | null) {
+          var isToken = new newToken(tempToken, "identifier", line_number);
+          foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
+          foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+          console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
+          // console.log('found a token boss' + tempToken);
+          // document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+' "' + foundTokens[0] //foundTokens++;
+          document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
+          // console.log("got an identifier")
+          foundTokens = [];
+          tokenCheck = true;
+          lexerBegin = forward;
+          run = false;
+          break;
+        }
+        else if((input_text[forward]).search(T_Char) != -1) {
             console.log('this is the current character at case 1' + input_text[forward]);
             tempToken += input_text[forward];
             forward++;
             state = 2;
             break;
-            }
-            else {
-              var isToken = new newToken(tempToken, "identifier", line_number);
-              foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-              foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
-              console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
-              // console.log('found a token boss' + tempToken);
-              // document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+' "' + foundTokens[0] //foundTokens++;
-              document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
-              // console.log("got an identifier")
-              foundTokens = [];
-              tokenCheck = true;
-              lexerBegin = forward;
-              run = false;
-              break;
-            }
-
-
+        }
+        else {
+          console.log('current: ' + input_text[forward]);
+          var isToken = new newToken(tempToken, "identifier", line_number);
+          foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
+          foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+          console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
+          // console.log('found a token boss' + tempToken);
+          // document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+' "' + foundTokens[0] //foundTokens++;
+          document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
+          // console.log("got an identifier")
+          foundTokens = [];
+          tokenCheck = true;
+          // lexerBegin = forward;
+          run = false;
+          break;
+        }
 
       case 2:
           if  (tempToken == 'if'){
@@ -434,8 +447,14 @@ function checkForString (newToken, forward, input_text){
             forward++;
             state = 2;
           }
+          else if ((input_text[forward]).search(T_Space) != -1){
+						tempToken += input_text[forward];
+						forward++;
+						state = 2;
+						break;
+					}
           else if ((input_text[forward]) == '"') {
-            var isToken = new newToken(tempToken, "string", line_number);
+            var isToken = new newToken(tempToken, "string expression", line_number);
               foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
               foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
             // console.log('case 3 ELSE got a ==');
