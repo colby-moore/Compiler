@@ -1,3 +1,25 @@
+.header{
+	height: 90px;
+	color: white;
+	text-align: center;
+	max-width: 100%;
+	width: 100%;
+	background-color: black;
+  margin-bottom: 20px;
+}
+
+	.header h3{
+		letter-spacing: .05em;
+		text-transform: uppercase;
+   	font-weight: 800;
+    font-size: 1.35em;
+		line-height: 87px;
+		font-family: 'Raleway', sans-serif;
+		margin: 0px;
+		color: white;
+
+	}
+
 .container{
   text-align: center;
 }
@@ -13,7 +35,50 @@
     margin-left: 0px;
   }
 
-  .clickMe{
+  button{
     text-align: center !important;
-    margin-left: 47.5%;
+    margin: 0 auto !important;
+    display: block;
   }
+  .clickMe {
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 180px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.clickMe span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.clickMe span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.clickMe:hover span {
+  padding-right: 25px;
+}
+
+.clickMe:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+    .footer{
+      margin-bottom: 20px;
+      text-align: center;
+    }

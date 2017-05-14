@@ -8,30 +8,44 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
     <script src="lex.js"></script>
     <script src="parser.js"></script>
+    <script src="syntaxTreeAbstract.js"></script>
 
   </head>
   <body>
+    <div class="col-md-12 header"><h3>Colby's Compiler</h3></div>
+    <div class="col-md-12"><button class="clickMe" onclick="lexerRun();parserRun();"><span>COMPILE</span></button></div>
     <div class="container">
-      <h2>This is a compiler! Sort of.....</h2>
       <div class="hi col-md-1"></div>
         <div class="form-group box2 col-md-4">
           <label for="comment">Input:</label>
-          <textarea id="input" class="form-control" rows="10" style="resize: none" placeholder="Input text..."></textarea>
+          <textarea id="input" class="form-control" rows="25" style="resize: none" placeholder="Input text..."></textarea>
         </div>
       <div class="hi col-md-2"></div>
         <div class="form-group box2 col-md-4">
           <label for="comment">Lex:</label>
-          <textarea id="output" class="form-control" rows="10" style="resize: none" placeholder="Output text..."></textarea>
+          <textarea id="output" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
         </div>
       <div class="hi col-md-1"></div>
       <div class="hi col-md-2"></div>
         <div class="form-group box2 col-md-4">
           <label for="comment">Parse:</label>
-          <textarea id="parse" class="form-control" rows="10" style="resize: none" placeholder="Output text..."></textarea>
+          <textarea id="parse" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
         </div>
+        <div class="hi col-md-6"></div>
+        <div class="hi col-md-6"></div>
+        <div class="hi col-md-6"></div>
+        <div class="hi col-md-6"></div>
+        <div class="hi col-md-6"></div>
+        <div class="hi col-md-6"></div>
+        <div class="hi col-md-4"></div>
+          <div class="form-group box2 col-md-4">
+            <label for="comment">AST:</label>
+            <textarea id="ast" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
+          </div>
     </div>
-    <div class="col-md-6"><button class="clickMe" onclick="lexerRun()">Lex</button></div>
-    <div class="col-md-6"><button class="clickMe" onclick="parser()">Parse</button></div>
+    <div class="col-md-12 footer"><h5><a href="http://labouseur.com/courses/compilers/grammar.pdf">Link to our grammar</a></h5></div>
+
+
 
 
 

@@ -19,7 +19,7 @@ function match (token, parseCounter){
 
 }
 
-function parser(){
+function parserRun(){
   //console.log(foundTokensToParse[parseCounter][0]);
 
 	parse_Program();
@@ -33,9 +33,12 @@ function parse_Program(){
   tree.addNode('Program','branch');
 	parse_Block();
 	match('$', parseCounter);
-  console.log(tree.toString());
+  document.getElementById('parse').value += tree.toString() + "\n"
+  // console.log("got an identifier")
+  // console.log(tree.toString());
   //do we need a counter here still?
-  parseCounter++;
+  console.log('running ast');
+  astRun();
 }
 
 //production Block ::== { StatementList }
@@ -49,9 +52,7 @@ function parse_Block(){
   tree.endChildren();
 
 	match('}', parseCounter);
-  parseCounter++
-  tree.endChildren();
-  tree.endChildren();
+  parseCounter++;
 
 }
 
@@ -64,41 +65,73 @@ function parse_StatementList(){
   console.log("got to statementlist ");
 	if (foundTokensToParse[parseCounter][0] == 'print'){
 		parse_Statement();
+    tree.endChildren();
+    tree.endChildren();
 		parse_StatementList();
+    tree.endChildren();
+    tree.endChildren();
     console.log('got past the if');
 
 	}
   // extends to here for the identifier question
 	else if(foundTokensToParse[parseCounter][1] == 'identifier'){
     parse_Statement();
+    tree.endChildren();
+    tree.endChildren();
 		parse_StatementList();
-    console.log("got to identifier 1");
+    tree.endChildren();
+    tree.endChildren();
+
 	}
 	else if (foundTokensToParse[parseCounter][0] == 'int'){
     console.log('got past the if type');
     parse_Statement();
+    tree.endChildren();
+    tree.endChildren();
 		parse_StatementList();
+    tree.endChildren();
+    tree.endChildren();
 	}
   else if (foundTokensToParse[parseCounter][0] == 'string'){
     parse_Statement();
+    tree.endChildren();
+    tree.endChildren();
 		parse_StatementList();
+    tree.endChildren();
+    tree.endChildren();
 	}
   else if (foundTokensToParse[parseCounter][0] == 'boolean'){
     parse_Statement();
+    tree.endChildren();
+    tree.endChildren();
 		parse_StatementList();
+    tree.endChildren();
+    tree.endChildren();
 	}
 	else if (foundTokensToParse[parseCounter][1] == 'while'){
     parse_Statement();
+    tree.endChildren();
+    tree.endChildren();
 		parse_StatementList();
+    tree.endChildren();
+    tree.endChildren();
 	}
 	else if (foundTokensToParse[parseCounter][1] == 'if'){
     parse_Statement();
+    tree.endChildren();
+    tree.endChildren();
 		parse_StatementList();
+    tree.endChildren();
+    tree.endChildren();
 
 	}
 	else if (foundTokensToParse[parseCounter][0] == '{'){
     parse_Statement();
+    tree.endChildren();
+    tree.endChildren();
 		parse_StatementList();
+    tree.endChildren();
+    tree.endChildren();
 	}
 	else{
     console.log("epsilon");
@@ -120,36 +153,52 @@ function parse_Statement(){
 	if (foundTokensToParse[parseCounter][0] == 'print'){
     console.log('found print');
     parse_PrintStatement();
+    tree.endChildren();
+    tree.endChildren();
 
 	}
   // extends to here for the identifier question
 	else if(foundTokensToParse[parseCounter][1] == 'identifier'){
 		parse_AssignmentStatement();
+    tree.endChildren();
+
     console.log("got to identifier 2");
 
 	}
 	else if (foundTokensToParse[parseCounter][0] == 'int'){
 		parse_VarDecl();
+    tree.endChildren();
+
 
 	}
   else if (foundTokensToParse[parseCounter][0] == 'string'){
 		parse_VarDecl();
+    tree.endChildren();
+
 
 	}
   else if (foundTokensToParse[parseCounter][0] == 'boolean'){
 		parse_VarDecl();
+    tree.endChildren();
+
 
 	}
 	else if (foundTokensToParse[parseCounter][0] == 'while'){
 		parse_WhileStatement();
+    tree.endChildren();
+
 
 	}
 	else if (foundTokensToParse[parseCounter][0] == 'if'){
 		parse_IfStatement();
+    tree.endChildren();
+
 
 	}
 	else if (foundTokensToParse[parseCounter][0] == '{'){
 		parse_Block();
+    tree.endChildren();
+
 
 
 
@@ -174,6 +223,7 @@ function parse_PrintStatement(){
 	match('(', parseCounter);
   parseCounter++;
 	parse_Expr();
+  tree.endChildren();
 	match (')', parseCounter);
   parseCounter++;
 
@@ -185,10 +235,12 @@ function parse_AssignmentStatement(){
   tree.addNode('AssignmentStatement','branch');
 
 	parse_ID();
+  tree.endChildren();
 
 	match('=', parseCounter);
   parseCounter++;
 	parse_Expr();
+  tree.endChildren();
 
 
 
@@ -198,7 +250,11 @@ function parse_AssignmentStatement(){
 function parse_VarDecl(){
   tree.addNode('VarDecl','branch');
 	parse_type();
+  tree.endChildren();
+
 	parse_ID();
+  tree.endChildren();
+
 
 
 }
@@ -209,7 +265,11 @@ function parse_WhileStatement(){
 	match('while', parseCounter);
   parseCounter++;
 	parse_BooleanExpr();
+  tree.endChildren();
+
 	parse_Block();
+  tree.endChildren();
+
 
 }
 //
@@ -219,7 +279,11 @@ function parse_IfStatement(){
 	match('if', parseCounter);
   parseCounter++;
 	parse_BooleanExpr();
+  tree.endChildren();
+
 	parse_Block();
+  tree.endChildren();
+
 
 
 }
@@ -234,17 +298,25 @@ function parse_Expr(){
 	if(foundTokensToParse[parseCounter][1] == "digit"){
     console.log('its a gooda digit');
 		parse_IntExpr();
+    tree.endChildren();
+
 
 	}
 	else if (foundTokensToParse[parseCounter][0] == '"'){
 		parse_StringExpr();
+    tree.endChildren();
+
 	}
 	else if (foundTokensToParse[parseCounter][0] == '(' || foundTokensToParse[parseCounter][0] == 'false' || foundTokensToParse[parseCounter][0] == 'true'){
 		parse_BooleanExpr();
+    tree.endChildren();
+
 
 	}
 	else if (foundTokensToParse[parseCounter][1] == 'identifier' ) {
 		parse_ID();
+    tree.endChildren();
+
 
 	}
 
@@ -257,10 +329,16 @@ function parse_IntExpr(){
   tree.addNode('IntExpr','branch');
 	if (foundTokensToParse[parseCounter][1] == 'digit'){
 		parse_digit();
+    tree.endChildren();
+
     console.log("this is the next look ahead: " + foundTokensToParse[parseCounter][0]);
     if (foundTokensToParse[parseCounter][0] == '+') {
       parse_intop();
+      tree.endChildren();
+
       parse_Expr();
+      tree.endChildren();
+
     }
 
 
@@ -279,6 +357,8 @@ function parse_StringExpr(){
 	match('"', parseCounter);
   parseCounter++;
 	parse_CharList();
+  tree.endChildren();
+
 	match('"', parseCounter);
   parseCounter++;
 
@@ -293,13 +373,21 @@ function parse_BooleanExpr(){
 		match('(', parseCounter);
     parseCounter++;
 		parse_Expr();
+    tree.endChildren();
+
 		parse_boolop();
+    tree.endChildren();
+
 		parse_Expr();
+    tree.endChildren();
+
     match(')', parseCounter);
     parseCounter++;
 	}
 	else{
 		parse_boolval();
+    tree.endChildren();
+
 
 	}
 
@@ -311,6 +399,7 @@ function parse_BooleanExpr(){
 function parse_ID(){
   tree.addNode('ID','branch');
 	parse_char();
+  tree.endChildren();
 
 
 }
@@ -322,7 +411,11 @@ function parse_CharList(){
   tree.addNode('CharList','branch');
 	if (foundTokensToParse[parseCounter][1] == 'string expression' ){
 		parse_char();
+    tree.endChildren();
+
 		parse_CharList();
+    tree.endChildren();
+
 	}
 	else{
 		// e production

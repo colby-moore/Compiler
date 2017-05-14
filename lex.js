@@ -1,3 +1,5 @@
+
+
   var T_Space = /[ \s]/;
   var T_LBracket = /[{]/;
   var T_RBracket = /[}]/;
@@ -56,7 +58,7 @@ function lexer(isToken) {
     var input_text = document.getElementById('input').value;
 
     console.log("Scanning " + programCounter);
-    document.getElementById('output').value += "scanning program " + programCounter + '\n';
+    document.getElementById('output').value += "scanning programs " + '\n';
 
 
     for (lexerBegin = 0; lexerBegin<input_text.length; lexerBegin++) {
@@ -80,11 +82,13 @@ function lexer(isToken) {
 
 
     }
-    if (failCount == 0) {
-        document.getElementById('output').value += 'Lexer tower control this is callsign Alpha Lima Alpha November... Requesting permission to lex? This is Lexer Control... permission granted'
+    if (failCount == 0 || tokenCheck != false){
+        document.getElementById('output').value += 'LEX SUCCESSFUL: MOVING TO PARSE.'
+        console.log('running parser');
+        parserRun();
     }
-    else if (failCount > 0){
-        document.getElementById('output').value += 'Sink rate... sink rate... Lexer error... Pull up! Pull up!'
+    else if (failCount > 0  || tokenCheck == false){
+        document.getElementById('output').value += 'ERROR: Lex unsuccessful, killing lexer.'
     }
 }
 
