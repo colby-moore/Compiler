@@ -1,5 +1,6 @@
 
 
+
   var T_Space = /[ \s]/;
   var T_LBracket = /[{]/;
   var T_RBracket = /[}]/;
@@ -25,7 +26,7 @@
 
   // Array to store the tokens that are found
   var foundTokens = [];
-  var foundTokensToParse = [];
+  var foundTokensCopy = [];
   var state;
   var lexemecount = [];
   var lexerBegin = 0;
@@ -84,8 +85,7 @@ function lexer(isToken) {
     }
     if (failCount == 0 || tokenCheck != false){
         document.getElementById('output').value += 'LEX SUCCESSFUL: MOVING TO PARSE.'
-        console.log('running parser');
-        parserRun();
+        parser();
     }
     else if (failCount > 0  || tokenCheck == false){
         document.getElementById('output').value += 'ERROR: Lex unsuccessful, killing lexer.'
@@ -127,7 +127,7 @@ function checkForMultiChars (newToken, forward, input_text){
         // console.log('this is the current character at case 1' + input_text[forward]);
           var isToken = new newToken(tempToken, "identifier", line_number);
           foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-          foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+          foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
           console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
           // console.log('found a token boss' + tempToken);
           // document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+' "' + foundTokens[0] //foundTokens++;
@@ -150,7 +150,7 @@ function checkForMultiChars (newToken, forward, input_text){
           console.log('current: ' + input_text[forward]);
           var isToken = new newToken(tempToken, "identifier", line_number);
           foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-          foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+          foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
           console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
           // console.log('found a token boss' + tempToken);
           // document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+' "' + foundTokens[0] //foundTokens++;
@@ -168,7 +168,7 @@ function checkForMultiChars (newToken, forward, input_text){
             lexerBegin = forward;
             var isToken = new newToken(tempToken, "if", line_number);
               foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-              foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+              foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
             // console.log('case 2 ELSE got a if');
             console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
             // console.log('found a token boss');
@@ -184,7 +184,7 @@ function checkForMultiChars (newToken, forward, input_text){
                 lexerBegin = forward;
                 var isToken = new newToken(tempToken, "int", line_number);
                 foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-                foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+                foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
                 // console.log('case 2 ELSE got an int');
                 console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
                 // console.log('found a token boss');
@@ -198,7 +198,7 @@ function checkForMultiChars (newToken, forward, input_text){
                 lexerBegin = forward;
                 var isToken = new newToken(tempToken, "false", line_number);
                 foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-                foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+                foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
                 // console.log('case 2 ELSE got a false');
                 console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
                 // console.log('found a token boss');
@@ -212,7 +212,7 @@ function checkForMultiChars (newToken, forward, input_text){
                 lexerBegin = forward;
                 var isToken = new newToken(tempToken, "true", line_number);
                   foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-                  foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+                  foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
                 // console.log('case 2 ELSE got a false');
                 console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
                 // console.log('found a token boss');
@@ -226,7 +226,7 @@ function checkForMultiChars (newToken, forward, input_text){
                 lexerBegin = forward;
                 var isToken = new newToken(tempToken, "string", line_number);
                   foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-                  foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+                  foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
                 // console.log('case 2 ELSE got a string');
                 console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
                 // console.log('found a token boss');
@@ -240,7 +240,7 @@ function checkForMultiChars (newToken, forward, input_text){
                 lexerBegin = forward;
                 var isToken = new newToken(tempToken, "while", line_number);
                   foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-                  foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+                  foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
                 // console.log('case 2 ELSE got a while');
                 console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
                 // console.log('found a token boss');
@@ -254,7 +254,7 @@ function checkForMultiChars (newToken, forward, input_text){
                 lexerBegin = forward;
                 var isToken = new newToken(tempToken, "print", line_number);
                   foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-                  foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+                  foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
                 // console.log('case 2 ELSE got a print');
                 console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
                 // console.log('found a token boss');
@@ -268,7 +268,7 @@ function checkForMultiChars (newToken, forward, input_text){
                 lexerBegin = forward;
                 var isToken = new newToken(tempToken, "boolean", line_number);
                   foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-                  foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+                  foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
                 // console.log('case 2 ELSE got a print');
                 console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
                 // console.log('found a token boss');
@@ -338,7 +338,7 @@ function checkForSymbolTokens (newToken, forward, input_text){
         lexerBegin = forward;
         var isToken = new newToken(tempToken, "equals", line_number);
           foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-          foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+          foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         // console.log('case 3 ELSE got a ==');
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -350,7 +350,7 @@ function checkForSymbolTokens (newToken, forward, input_text){
       else{
         var isToken = new newToken(current, "assign", line_number);
           foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-          foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+          foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('found a token boss' + tempToken);
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -369,7 +369,7 @@ function checkForSymbolTokens (newToken, forward, input_text){
         lexerBegin = forward;
         var isToken = new newToken(tempToken, "not equals", line_number);
           foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-          foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+          foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         // console.log('case 3 ELSE got a !=');
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -413,7 +413,7 @@ function checkForString (newToken, forward, input_text){
           tempToken += input_text[forward];
           var isToken = new newToken(tempToken, "quote", line_number);
             foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-            foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+            foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
           // console.log('case 3 ELSE got a ==');
           console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
           document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -460,7 +460,7 @@ function checkForString (newToken, forward, input_text){
           else if ((input_text[forward]) == '"') {
             var isToken = new newToken(tempToken, "string expression", line_number);
               foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-              foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+              foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
             // console.log('case 3 ELSE got a ==');
             console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
             document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -473,7 +473,7 @@ function checkForString (newToken, forward, input_text){
             var isToken = new newToken(tempToken, "quote", line_number);
             lexerBegin = forward;
               foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-              foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+              foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
             // console.log('case 3 ELSE got a ==');
             console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
             document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -502,7 +502,7 @@ function checkForString (newToken, forward, input_text){
         //   else if ((input_text[forward]) == '"') {
         //     var isToken = new newToken(tempToken, "string", line_number);
         //       foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        //       foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        //       foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         //     // console.log('case 3 ELSE got a ==');
         //     console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         //     document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -514,7 +514,7 @@ function checkForString (newToken, forward, input_text){
         //
         //     var isToken = new newToken(tempToken, "quote", line_number);
         //       foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        //       foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        //       foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         //     // console.log('case 3 ELSE got a ==');
         //     console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         //     document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -541,7 +541,7 @@ function isLBracket(current){
     if (current.search(T_LBracket) != -1){
         var isToken = new newToken(current, "left bracket", line_number);
           foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-          foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+          foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
           console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('hey boss found lbracket');
         //   console.log('this is the lexerBegin count' +lexerBegin);
@@ -560,7 +560,7 @@ function isRBracket(current){
     if (current.search(T_RBracket) != -1){
         var isToken = new newToken(current, "right bracket", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
         tokenCheck = true;
@@ -577,7 +577,7 @@ function isLParen(current){
     if (current.search(T_LParen) != -1){
         var isToken = new newToken(current, "left paren", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
         tokenCheck = true;
@@ -594,7 +594,7 @@ function isRParen(current){
     if (current.search(T_RParen) != -1){
         var isToken = new newToken(current, "right paren", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
         tokenCheck = true;
@@ -611,7 +611,7 @@ function isPlus(current){
     if (current.search(T_Plus) != -1){
         var isToken = new newToken(current, "plus", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('hey boss found plus');
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -629,7 +629,7 @@ function isAssign(current){
     if (current.search(T_Assign) != -1){
         var isToken = new newToken(current, "assign", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('hey boss found assign');
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -647,7 +647,7 @@ function isQuote(current){
     if (current.search(T_Quote) != -1){
         var isToken = new newToken(current, "quote", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('hey boss found quote');
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -665,7 +665,7 @@ function isAssign(current){
     if (current.search(T_Assign) != -1){
         var isToken = new newToken(current, "assign", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('hey boss found assign');
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+' "' + foundTokens[0] //foundTokens++;
@@ -683,7 +683,7 @@ function isDigit(current){
     if (current.search(T_Digit) != -1){
         var isToken = new newToken(current, "digit", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('hey boss found digit');
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -701,7 +701,7 @@ function isChar(current){
     if (current.search(T_Char) != -1){
         var isToken = new newToken(current, "char", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('hey boss found char');
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -719,7 +719,7 @@ function isNewline(current){
     if (current.search(T_Newline) != -1){
         var isToken = new newToken(current, "new line", line_number);
         foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-        foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+        foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
         console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
         // console.log('hey boss found new line');
         document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"
@@ -737,7 +737,7 @@ function isEol(current){
   if (current.search(T_Eol) != -1){
       var isToken = new newToken(current, "End of line", line_number);
       foundTokens.push(isToken.desc, isToken.type, isToken.line_number);
-      foundTokensToParse.push([isToken.desc, isToken.type, isToken.line_number]);
+      foundTokensCopy.push([isToken.desc, isToken.type, isToken.line_number]);
       console.log("lexer: " + foundTokens[1]+ " "+ foundTokens[0] );
       // console.log('hey boss found end of line');
       document.getElementById('output').value += "lexer: token found at line number "+ foundTokens[2]+ ' ----->  ' + foundTokens[1]+ " " + foundTokens[0] + "\n"

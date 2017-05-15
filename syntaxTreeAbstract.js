@@ -1,16 +1,17 @@
 var counter = 0;
 var ast = new astTree();
 
+
 function matchMe (token, counter){
 
-	if(token == foundTokensToParse[counter][0]){
+	if(token == foundTokensCopy[counter][0]){
 		ast.addNode(token, 'leaf');
-    console.log('expected Token: ' + token + ' Token Found: ' + foundTokensToParse[counter][0]);
+    console.log('expected Token: ' + token + ' Token Found: ' + foundTokensCopy[counter][0]);
 	}
 
 	else{
 
-    console.log("current token parse" + token + "This did not work " + foundTokensToParse[counter][0] );
+    console.log("current token ast" + token + "This did not work " + foundTokensCopy[counter][0] );
 		//error
 
 	}
@@ -20,19 +21,19 @@ function matchMe (token, counter){
 }
 
 function astRun(){
-  //console.log(foundTokensToParse[counter][0]);
+  //console.log(foundTokensCopy[counter][0]);
 
-	parseProgram();
+	astProgram();
 
 }
 
 
 //production Program ::== Block $
 
-function parseProgram(){
+function astProgram(){
 	ast.addNode('Block','branch');
 
-	parseBlock();
+	astBlock();
 	matchMe('$', counter);
 	document.getElementById('ast').value += ast.toString() + "\n"
   // console.log("got an identifier")
@@ -43,12 +44,12 @@ function parseProgram(){
 
 //production Block ::== { StatementList }
 
-function parseBlock(){
+function astBlock(){
   matchMe('{', counter);
 
 	counter++;
 
-	parseStatementList();
+	astStatementList();
   ast.endChildren();
 
 	matchMe('}', counter);
@@ -60,76 +61,76 @@ function parseBlock(){
 
 //production StatementList ::== Statement StatementList
 //					       ::== e
-function parseStatementList(){
+function astStatementList(){
   // Assign operator = here i think is wrong... need to find an identifier?
   console.log("got to statementlist ");
-	if (foundTokensToParse[counter][0] == 'print'){
-		parseStatement();
+	if (foundTokensCopy[counter][0] == 'print'){
+		astStatement();
     ast.endChildren();
     ast.endChildren();
-		parseStatementList();
+		astStatementList();
     ast.endChildren();
     ast.endChildren();
     console.log('got past the if');
 
 	}
   // extends to here for the identifier question
-	else if(foundTokensToParse[counter][1] == 'identifier'){
-    parseStatement();
+	else if(foundTokensCopy[counter][1] == 'identifier'){
+    astStatement();
     ast.endChildren();
     ast.endChildren();
-		parseStatementList();
+		astStatementList();
     ast.endChildren();
     ast.endChildren();
 
 	}
-	else if (foundTokensToParse[counter][0] == 'int'){
+	else if (foundTokensCopy[counter][0] == 'int'){
     console.log('got past the if type');
-    parseStatement();
+    astStatement();
     ast.endChildren();
     ast.endChildren();
-		parseStatementList();
-    ast.endChildren();
-    ast.endChildren();
-	}
-  else if (foundTokensToParse[counter][0] == 'string'){
-    parseStatement();
-    ast.endChildren();
-    ast.endChildren();
-		parseStatementList();
+		astStatementList();
     ast.endChildren();
     ast.endChildren();
 	}
-  else if (foundTokensToParse[counter][0] == 'boolean'){
-    parseStatement();
+  else if (foundTokensCopy[counter][0] == 'string'){
+    astStatement();
     ast.endChildren();
     ast.endChildren();
-		parseStatementList();
-    ast.endChildren();
-    ast.endChildren();
-	}
-	else if (foundTokensToParse[counter][1] == 'while'){
-    parseStatement();
-    ast.endChildren();
-    ast.endChildren();
-		parseStatementList();
+		astStatementList();
     ast.endChildren();
     ast.endChildren();
 	}
-	else if (foundTokensToParse[counter][1] == 'if'){
-    parseStatement();
+  else if (foundTokensCopy[counter][0] == 'boolean'){
+    astStatement();
     ast.endChildren();
     ast.endChildren();
-		parseStatementList();
+		astStatementList();
+    ast.endChildren();
+    ast.endChildren();
+	}
+	else if (foundTokensCopy[counter][1] == 'while'){
+    astStatement();
+    ast.endChildren();
+    ast.endChildren();
+		astStatementList();
+    ast.endChildren();
+    ast.endChildren();
+	}
+	else if (foundTokensCopy[counter][1] == 'if'){
+    astStatement();
+    ast.endChildren();
+    ast.endChildren();
+		astStatementList();
     ast.endChildren();
     ast.endChildren();
 
 	}
-	else if (foundTokensToParse[counter][0] == '{'){
-    parseStatement();
+	else if (foundTokensCopy[counter][0] == '{'){
+    astStatement();
     ast.endChildren();
     ast.endChildren();
-		parseStatementList();
+		astStatementList();
     ast.endChildren();
     ast.endChildren();
 	}
@@ -147,55 +148,55 @@ function parseStatementList(){
 // //          			::== WhileStatement
 // //          			::== IfStatement
 // //          			::== Block
-function parseStatement(){
+function astStatement(){
   console.log('got to here');
-	if (foundTokensToParse[counter][0] == 'print'){
+	if (foundTokensCopy[counter][0] == 'print'){
     console.log('found print');
-    parsePrintStatement();
+    astPrintStatement();
     ast.endChildren();
     ast.endChildren();
 
 	}
   // extends to here for the identifier question
-	else if(foundTokensToParse[counter][1] == 'identifier'){
-		parseAssignmentStatement();
+	else if(foundTokensCopy[counter][1] == 'identifier'){
+		astAssignmentStatement();
     ast.endChildren();
 
     console.log("got to identifier 2");
 
 	}
-	else if (foundTokensToParse[counter][0] == 'int'){
-		parseVarDecl();
+	else if (foundTokensCopy[counter][0] == 'int'){
+		astVarDecl();
     ast.endChildren();
 
 
 	}
-  else if (foundTokensToParse[counter][0] == 'string'){
-		parseVarDecl();
+  else if (foundTokensCopy[counter][0] == 'string'){
+		astVarDecl();
     ast.endChildren();
 
 
 	}
-  else if (foundTokensToParse[counter][0] == 'boolean'){
-		parseVarDecl();
+  else if (foundTokensCopy[counter][0] == 'boolean'){
+		astVarDecl();
     ast.endChildren();
 
 
 	}
-	else if (foundTokensToParse[counter][0] == 'while'){
-		parseWhileStatement();
+	else if (foundTokensCopy[counter][0] == 'while'){
+		astWhileStatement();
     ast.endChildren();
 
 
 	}
-	else if (foundTokensToParse[counter][0] == 'if'){
-		parseIfStatement();
+	else if (foundTokensCopy[counter][0] == 'if'){
+		astIfStatement();
     ast.endChildren();
 
 
 	}
-	else if (foundTokensToParse[counter][0] == '{'){
-		parseBlock();
+	else if (foundTokensCopy[counter][0] == '{'){
+		astBlock();
     ast.endChildren();
 
 
@@ -215,13 +216,13 @@ function parseStatement(){
 }
 
 //Production PrintStatement ::== print ( Expr )
-function parsePrintStatement(){
+function astPrintStatement(){
   ast.addNode('PrintStatement','branch');
 	matchMe('print', counter);
   counter++;
 	matchMe('(', counter);
   counter++;
-	parseExpr();
+	astExpr();
   ast.endChildren();
 	matchMe (')', counter);
   counter++;
@@ -230,15 +231,15 @@ function parsePrintStatement(){
 }
 //
 // //Production AssignmentStatement ::== Id = Expr
-function parseAssignmentStatement(){
+function astAssignmentStatement(){
   ast.addNode('AssignmentStatement','branch');
 
-	parseID();
+	astID();
   ast.endChildren();
 
 	matchMe('=', counter);
   counter++;
-	parseExpr();
+	astExpr();
   ast.endChildren();
 
 
@@ -246,12 +247,12 @@ function parseAssignmentStatement(){
 }
 
 //Production VarDecl ::== type Id
-function parseVarDecl(){
+function astVarDecl(){
   ast.addNode('VarDecl','branch');
-	parsetype();
+	asttype();
   ast.endChildren();
 
-	parseID();
+	astID();
   ast.endChildren();
 
 
@@ -259,28 +260,28 @@ function parseVarDecl(){
 }
 //
 // //Production WhileStatement ::== while BooleanExpr Block
-function parseWhileStatement(){
+function astWhileStatement(){
   ast.addNode('WhileStatement','branch');
 	matchMe('while', counter);
   counter++;
-	parseBooleanExpr();
+	astBooleanExpr();
   ast.endChildren();
 
-	parseBlock();
+	astBlock();
   ast.endChildren();
 
 
 }
 //
 // //production IfStatement ::== if BooleanExpr Block
-function parseIfStatement(){
+function astIfStatement(){
   ast.addNode('IfStatement','branch');
 	matchMe('if', counter);
   counter++;
-	parseBooleanExpr();
+	astBooleanExpr();
   ast.endChildren();
 
-	parseBlock();
+	astBlock();
   ast.endChildren();
 
 
@@ -292,28 +293,28 @@ function parseIfStatement(){
 // //	   ::== BooleanExpr
 // //     ::== Id
 //
-function parseExpr(){
+function astExpr(){
   // ast.addNode('Expr','branch');
-	if(foundTokensToParse[counter][1] == "digit"){
+	if(foundTokensCopy[counter][1] == "digit"){
     console.log('its a gooda digit');
-		parseIntExpr();
+		astIntExpr();
     ast.endChildren();
 
 
 	}
-	else if (foundTokensToParse[counter][0] == '"'){
-		parseStringExpr();
+	else if (foundTokensCopy[counter][0] == '"'){
+		astStringExpr();
     ast.endChildren();
 
 	}
-	else if (foundTokensToParse[counter][0] == '(' || foundTokensToParse[counter][0] == 'false' || foundTokensToParse[counter][0] == 'true'){
-		parseBooleanExpr();
+	else if (foundTokensCopy[counter][0] == '(' || foundTokensCopy[counter][0] == 'false' || foundTokensCopy[counter][0] == 'true'){
+		astBooleanExpr();
     ast.endChildren();
 
 
 	}
-	else if (foundTokensToParse[counter][1] == 'identifier' ) {
-		parseID();
+	else if (foundTokensCopy[counter][1] == 'identifier' ) {
+		astID();
     ast.endChildren();
 
 
@@ -324,38 +325,38 @@ function parseExpr(){
 //
 // //production IntExpr ::== digit intop Expr
 // //					 ::== digit
-function parseIntExpr(){
+function astIntExpr(){
   // ast.addNode('IntExpr','branch');
-	if (foundTokensToParse[counter][1] == 'digit'){
-		parsedigit();
+	if (foundTokensCopy[counter][1] == 'digit'){
+		astdigit();
     ast.endChildren();
 
-    console.log("this is the next look ahead: " + foundTokensToParse[counter][0]);
-    if (foundTokensToParse[counter][0] == '+') {
-      parseintop();
+    console.log("this is the next look ahead: " + foundTokensCopy[counter][0]);
+    if (foundTokensCopy[counter][0] == '+') {
+      astintop();
       ast.endChildren();
 
-      parseExpr();
+      astExpr();
       ast.endChildren();
 
     }
 
 
 	// }
-	// else if (foundTokensToParse[counter][0] == '+'){
-	// 	parsedigit();
-  //   parseExpr();
+	// else if (foundTokensCopy[counter][0] == '+'){
+	// 	astdigit();
+  //   astExpr();
 	}
 
 
 }
 //
 // //production StringExpr ::== " CharList "
-function parseStringExpr(){
+function astStringExpr(){
   // ast.addNode('StringExpr','branch');
 	matchMe('"', counter);
   counter++;
-	parseCharList();
+	astCharList();
   ast.endChildren();
 
 	matchMe('"', counter);
@@ -366,25 +367,25 @@ function parseStringExpr(){
 // //production BooleanExpr ::== ( Expr boolop Expr )
 // //						 ::== boolval
 //
-function parseBooleanExpr(){
+function astBooleanExpr(){
   // ast.addNode('BooleanExpr','branch');
-	if ( foundTokensToParse[counter][0] == '('){
+	if ( foundTokensCopy[counter][0] == '('){
 		matchMe('(', counter);
     counter++;
-		parseExpr();
+		astExpr();
     ast.endChildren();
 
-		parseboolop();
+		astboolop();
     ast.endChildren();
 
-		parseExpr();
+		astExpr();
     ast.endChildren();
 
     matchMe(')', counter);
     counter++;
 	}
 	else{
-		parseboolval();
+		astboolval();
     ast.endChildren();
 
 
@@ -395,9 +396,9 @@ function parseBooleanExpr(){
 //
 // //production Id ::== char
 //
-function parseID(){
+function astID(){
   // ast.addNode('ID','branch');
-	parsechar();
+	astchar();
   ast.endChildren();
 
 
@@ -406,13 +407,13 @@ function parseID(){
 // //production CharList ::== char CharList
 // //					  ::== space CharList
 // //					  ::== ε
-function parseCharList(){
+function astCharList(){
   // ast.addNode('CharList','branch');
-	if (foundTokensToParse[counter][1] == 'string expression' ){
-		parsechar();
+	if (foundTokensCopy[counter][1] == 'string expression' ){
+		astchar();
     ast.endChildren();
 
-		parseCharList();
+		astCharList();
     ast.endChildren();
 
 	}
@@ -424,17 +425,17 @@ function parseCharList(){
 }
 //
 // //production type ::== int | string | boolean
-function parsetype(){
+function asttype(){
   // ast.addNode('type','branch');
-	if (foundTokensToParse[counter][1] == 'int'){
+	if (foundTokensCopy[counter][1] == 'int'){
 		matchMe('int', counter);
     counter++;
 	}
-	else if (foundTokensToParse[counter][1] == 'string'){
+	else if (foundTokensCopy[counter][1] == 'string'){
 		matchMe('string', counter);
     counter++;
 	}
-	else if (foundTokensToParse[counter][1] == 'boolean'){
+	else if (foundTokensCopy[counter][1] == 'boolean'){
 		matchMe('boolean', counter);
     counter++;
 	}
@@ -443,10 +444,10 @@ function parsetype(){
 }
 
 // //production char ::== a | b | c ... z
-function parsechar(){
+function astchar(){
   // ast.addNode('char','branch');
-  if (foundTokensToParse[counter][1].search(T_Char) != -1){
-		    ast.addNode(foundTokensToParse[counter][0] , 'leaf')
+  if (foundTokensCopy[counter][1].search(T_Char) != -1){
+		    ast.addNode(foundTokensCopy[counter][0] , 'leaf')
         counter++;
 	}
   else {
@@ -457,21 +458,21 @@ function parsechar(){
 
 //
 // //production digit ::== 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0
-function parsedigit(){
+function astdigit(){
   // ast.addNode('digit','branch');
-  ast.addNode(foundTokensToParse[counter][0] , 'leaf')
+  ast.addNode(foundTokensCopy[counter][0] , 'leaf')
   counter++;
 }
 
 // //production boolop ::== == | !=
 
-function parseboolop(){
+function astboolop(){
   // ast.addNode('boolop','branch');
-	if (foundTokensToParse[counter][0] == '=='){
+	if (foundTokensCopy[counter][0] == '=='){
 		matchMe('==', counter);
     counter++;
 	}
-	else if (foundTokensToParse[counter][0] == '!='){
+	else if (foundTokensCopy[counter][0] == '!='){
 		matchMe('!=', counter);
     counter++;
 	}
@@ -479,13 +480,13 @@ function parseboolop(){
 }
 //
 // //production boolval ::== false | true
-function parseboolval(){
+function astboolval(){
   // ast.addNode('boolval','branch');
-	if (foundTokensToParse[counter][1]== 'false'){
+	if (foundTokensCopy[counter][1]== 'false'){
 		matchMe('false', counter);
     counter++;
 	}
-	else if (foundTokensToParse[counter][1] == 'true'){
+	else if (foundTokensCopy[counter][1] == 'true'){
 		matchMe('true', counter);
     counter++;
 	}
@@ -493,7 +494,7 @@ function parseboolval(){
 }
 //
 // //production intop ::== +
-function parseintop(){
+function astintop(){
 	matchMe('+', counter);
   counter++;
 
