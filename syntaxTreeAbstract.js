@@ -1,6 +1,13 @@
 var counter = 0;
 var ast = new astTree();
 
+var scopeCounter = -1;
+
+var symbolTable =[];
+var symbolCheck = [];
+var temp;
+
+
 
 function matchMe (token, counter){
 
@@ -31,10 +38,13 @@ function astRun(){
 //production Program ::== Block $
 
 function astProgram(){
-	ast.addNode('Block','branch');
 
 	astBlock();
 	matchMe('$', counter);
+	// console.log(symbolTable);
+	// var newArr = [];
+	// while(symbolCheck.length) newArr.push(symbolCheck.splice(0,3));
+	// console.log(newArr)
 	document.getElementById('ast').value += ast.toString() + "\n"
   // console.log("got an identifier")
   // console.log(ast.toString());
@@ -42,17 +52,20 @@ function astProgram(){
   counter++;
 }
 
+
+
 //production Block ::== { StatementList }
 
 function astBlock(){
-  matchMe('{', counter);
-
+  // matchMe('{', counter);
+	ast.addNode('Block','branch');
+	scopeCounter++
 	counter++;
 
 	astStatementList();
   ast.endChildren();
 
-	matchMe('}', counter);
+	// matchMe('}', counter);
 	// ast.addNode('}','branch');
   counter++;
 
@@ -423,21 +436,132 @@ function astCharList(){
 
 
 }
+
+function myFunction(){
+
+}
 //
 // //production type ::== int | string | boolean
 function asttype(){
   // ast.addNode('type','branch');
 	if (foundTokensCopy[counter][1] == 'int'){
 		matchMe('int', counter);
-    counter++;
+		symbolCheck.push(foundTokensCopy[counter][1]);
+		alert('pushed to temparray');
+
+		counter++;
+		symbolCheck.push(foundTokensCopy[counter][0]);
+		symbolCheck.push(scopeCounter);
+
+				if(symbolTable.length == 0){
+					alert('symbol table 0');
+					symbolTable.push(symbolCheck);
+					console.log(symbolTable);
+				}
+				else {
+
+					for(var i = 0; i < symbolTable.length; i++) {
+						alert('inside of loop1');
+			    	var cube = symbolTable[i];
+			    for(var j = 0; j < cube.length; j++) {
+						alert('inside of loop2');
+						// if (symbolCheck[j][0] == symbolCheck[i][0] &&   symbolCheck[j][1] == symbolCheck[i][1] && symbolCheck[j][2] == symbolCheck[i][2] )
+							if (symbolCheck[j][0] != symbolCheck[i][0] &&  symbolCheck[j][1] != symbolCheck[i][1] && symbolCheck[j][2] != symbolCheck[i][2] ) {
+									alert('inside of if');
+									symbolCheck.concat(symbolTable);
+							}
+							else {
+								alert('inside of else');
+								console.log("ERROR SCOPE OR TYPE INTERFERENCE!");
+							}
+							console.log('symbol table: ' + symbolTable);
+							symbolCheck = [];
+							console.log('hey boss symbol table after clear ' + symbolTable);
+			    }
+				}
+
+
+
+		}
+
 	}
 	else if (foundTokensCopy[counter][1] == 'string'){
 		matchMe('string', counter);
-    counter++;
+		symbolCheck.push(foundTokensCopy[counter][1]);
+
+		counter++;
+		symbolCheck.push(foundTokensCopy[counter][0]);
+		symbolCheck.push(scopeCounter);
+
+				if(symbolTable.length == 0){
+					alert('symbol table 0');
+					symbolTable.push(symbolCheck);
+					console.log(symbolTable);
+				}
+				else {
+
+					for(var i = 0; i < symbolTable.length; i++) {
+						alert('inside of loop3');
+			    	var cube = symbolTable[i];
+			    for(var j = 0; j < cube.length; j++) {
+						alert('inside of loop4');
+						// if (symbolCheck[j][0] == symbolCheck[i][0] &&   symbolCheck[j][1] == symbolCheck[i][1] && symbolCheck[j][2] == symbolCheck[i][2] )
+							if (symbolCheck[j][0] != symbolCheck[i][0] &&  symbolCheck[j][1] != symbolCheck[i][1] && symbolCheck[j][2] != symbolCheck[i][2] ) {
+									alert('inside of if');
+									symbolCheck.concat(symbolTable);
+							}
+							else {
+								alert('inside of else');
+								console.log("ERROR SCOPE OR TYPE INTERFERENCE!");
+							}
+							console.log('symbol table: ' + symbolTable);
+							symbolCheck = [];
+							console.log('hey boss symbol table after clear ' + symbolTable);
+			    }
+				}
+
+
+
+		}
 	}
 	else if (foundTokensCopy[counter][1] == 'boolean'){
 		matchMe('boolean', counter);
-    counter++;
+		symbolCheck.push(foundTokensCopy[counter][1]);
+
+		counter++;
+		symbolCheck.push(foundTokensCopy[counter][0]);
+		symbolCheck.push(scopeCounter);
+
+				if(symbolTable.length == 0){
+					alert('symbol table 0');
+					symbolTable.push(symbolCheck);
+					console.log(symbolTable);
+				}
+				else {
+
+					for(var i = 0; i < symbolTable.length; i++) {
+						alert('inside of loop5');
+						var cube = symbolTable[i];
+					for(var j = 0; j < cube.length; j++) {
+						alert('inside of loop6');
+						// if (symbolCheck[j][0] == symbolCheck[i][0] &&   symbolCheck[j][1] == symbolCheck[i][1] && symbolCheck[j][2] == symbolCheck[i][2] )
+							if (symbolCheck[j][0] != symbolCheck[i][0] &&  symbolCheck[j][1] != symbolCheck[i][1] && symbolCheck[j][2] != symbolCheck[i][2] ) {
+									alert('inside of if');
+									symbolCheck.concat(symbolTable);
+							}
+							else {
+								alert('inside of else');
+								console.log("ERROR SCOPE OR TYPE INTERFERENCE!");
+							}
+							console.log('symbol table: ' + symbolTable);
+							symbolCheck = [];
+							console.log('hey boss symbol table after clear ' + symbolTable);
+					}
+				}
+
+
+
+		}
 	}
 
 
