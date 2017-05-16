@@ -43,6 +43,7 @@ button {
 }
 
 .clickMe {
+    font-family: 'Raleway', sans-serif;
     border-radius: 4px;
     background-color: #f4511e;
     border: none;
@@ -80,6 +81,102 @@ button {
     opacity: 1;
     right: 0;
 }
+
+.testCases:first-child{
+    margin-left: 37.5px !important;
+}
+
+.testCases {
+    margin-bottom: 5px !important;
+    margin-right: 10px !important;
+    font-family: 'Raleway', sans-serif;
+    float: left;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    padding: ;
+    height: 40px;
+    width: 80px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.testCases span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.testCases span:after {
+    content: '✔';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.testCases:hover span {
+    padding-right: 25px;
+}
+
+.testCases:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.testCasesBad:first-child{
+    margin-left: 37.5px !important;
+}
+
+.testCasesBad {
+    margin-right: 10px !important;
+    font-family: 'Raleway', sans-serif;
+    float: left;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    padding: ;
+    height: 40px;
+    width: 80px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.testCasesBad span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.testCasesBad span:after {
+    content: '✗';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.testCasesBad:hover span {
+    padding-right: 25px;
+}
+
+.testCasesBad:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
 
 .footer {
     margin-bottom: 20px;

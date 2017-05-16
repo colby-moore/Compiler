@@ -110,10 +110,10 @@ function astStatementList() {
     console.log("got to statementlist ");
     if (foundTokensCopy[counter][0] == 'print') {
         astStatement();
-        ast.endChildren();
+
         ast.endChildren();
         astStatementList();
-        ast.endChildren();
+
         ast.endChildren();
         console.log('got past the if');
 
@@ -121,56 +121,56 @@ function astStatementList() {
     // extends to here for the identifier question
     else if (foundTokensCopy[counter][1] == 'identifier') {
         astStatement();
-        ast.endChildren();
+
         ast.endChildren();
         astStatementList();
-        ast.endChildren();
+
         ast.endChildren();
 
     } else if (foundTokensCopy[counter][0] == 'int') {
         console.log('got past the if type');
         astStatement();
         ast.endChildren();
-        ast.endChildren();
+
         astStatementList();
         ast.endChildren();
-        ast.endChildren();
+
     } else if (foundTokensCopy[counter][0] == 'string') {
         astStatement();
         ast.endChildren();
-        ast.endChildren();
+
         astStatementList();
         ast.endChildren();
-        ast.endChildren();
+
     } else if (foundTokensCopy[counter][0] == 'boolean') {
         astStatement();
         ast.endChildren();
-        ast.endChildren();
+
         astStatementList();
         ast.endChildren();
-        ast.endChildren();
+
     } else if (foundTokensCopy[counter][1] == 'while') {
         astStatement();
         ast.endChildren();
-        ast.endChildren();
+
         astStatementList();
         ast.endChildren();
-        ast.endChildren();
+
     } else if (foundTokensCopy[counter][1] == 'if') {
         astStatement();
         ast.endChildren();
-        ast.endChildren();
+
         astStatementList();
         ast.endChildren();
-        ast.endChildren();
+
 
     } else if (foundTokensCopy[counter][0] == '{') {
         astStatement();
         ast.endChildren();
-        ast.endChildren();
+
         astStatementList();
         ast.endChildren();
-        ast.endChildren();
+
     } else {
         console.log("epsilon");
         //epsilon production
@@ -285,10 +285,10 @@ function astAssignmentStatement() {
 function astVarDecl() {
     ast.addNode('VarDecl', 'branch');
     asttype();
-    ast.endChildren();
+
 
     astID();
-    ast.endChildren();
+
 
 
 
@@ -300,7 +300,7 @@ function astWhileStatement() {
     matchMe('while', counter);
     counter++;
     astBooleanExpr();
-    ast.endChildren();
+
 
     astBlock();
     ast.endChildren();
@@ -314,7 +314,7 @@ function astIfStatement() {
     matchMe('if', counter);
     counter++;
     astBooleanExpr();
-    ast.endChildren();
+
 
     astBlock();
     ast.endChildren();
@@ -336,8 +336,10 @@ function astExpr(symbolObject, fromAssignemntStatement) {
                 symbolObject[3] = true;
                 console.log('its a gooda digit');
                 astIntExpr();
-                ast.endChildren();
+
             } else {
+								console.log("ERROR TYPE MISMATCH");
+								console.log('EXPECTED INT: ' + symbolObject[0]);
                 document.getElementById('symbolTable').value += "ERROR TYPE MISMATCH" + "\n"
                 document.getElementById('symbolTable').value += 'EXPECTED INT: ' + symbolObject[0] + "\n"
             }
@@ -349,6 +351,8 @@ function astExpr(symbolObject, fromAssignemntStatement) {
                 astStringExpr();
                 ast.endChildren();
             } else {
+								console.log("ERROR TYPE MISMATCH");
+								console.log('EXPECTED STRING: ' + symbolObject[0]);
                 document.getElementById('symbolTable').value += "ERROR TYPE MISMATCH" + "\n"
                 document.getElementById('symbolTable').value += 'EXPECTED STRING: ' + symbolObject[0] + "\n"
             }
@@ -360,6 +364,8 @@ function astExpr(symbolObject, fromAssignemntStatement) {
                 astBooleanExpr();
                 ast.endChildren();
             } else {
+								console.log("ERROR TYPE MISMATCH");
+								console.log('EXPECTED BOOLEAN: ' + symbolObject[0]);
                 document.getElementById('symbolTable').value += "ERROR TYPE MISMATCH" + "\n"
                 document.getElementById('symbolTable').value += 'EXPECTED BOOLEAN: ' + symbolObject[0] + "\n"
             }
@@ -370,15 +376,19 @@ function astExpr(symbolObject, fromAssignemntStatement) {
             var symbolID = astID();
             console.log(symbolID);
             if (symbolID == null) {
+								console.log("UNDEFINED VARIABLE");
                 document.getElementById('symbolTable').value += "UNDEFINED VARIABLE " + "\n"
             } else if (symbolID[3]) {
                 if (symbolObject[0] == symbolID[0]) {
                     console.log("IT IS WEDnsday my dueds");
                     ast.endChildren();
                 } else {
+										console.log("ERROR TYPE MISMATCH");
+										console.log('EXPECTED ID: ' + symbolObject[0]);
                     document.getElementById('symbolTable').value += 'ERROR TYPE MISMATCH' + "\n"
                 }
             } else {
+							console.log('WARNING UNINITIALIZED VARIABLE');
                 document.getElementById('symbolTable').value += "WARNING UNINITIALIZED VARIABLE " + "\n"
             }
 
@@ -390,7 +400,7 @@ function astExpr(symbolObject, fromAssignemntStatement) {
         if (foundTokensCopy[counter][1] == "digit") {
             console.log('its a gooda digit');
             astIntExpr();
-            ast.endChildren();
+
         } else if (foundTokensCopy[counter][0] == '"') {
             astStringExpr();
             ast.endChildren();
@@ -418,15 +428,15 @@ function astIntExpr() {
     // ast.addNode('IntExpr','branch');
     if (foundTokensCopy[counter][1] == 'digit') {
         astdigit();
-        ast.endChildren();
+
 
         console.log("this is the next look ahead: " + foundTokensCopy[counter][0]);
         if (foundTokensCopy[counter][0] == '+') {
             astintop();
-            ast.endChildren();
+
 
             astExpr();
-            ast.endChildren();
+
 
         }
 
@@ -462,23 +472,23 @@ function astBooleanExpr() {
         matchMe('(', counter);
         counter++;
         astExpr();
-        ast.endChildren();
+
 
         astboolop();
-        ast.endChildren();
+
 
         astExpr();
-        ast.endChildren();
+
 
         matchMe(')', counter);
         counter++;
     } else {
         astboolval();
-        ast.endChildren();
+
 
 
     }
-
+		ast.endChildren();
 
 }
 //
@@ -497,7 +507,7 @@ function astID() {
     }
 
     astchar();
-    ast.endChildren();
+
 
     if (idexists) {
         return symbolTable[i];
@@ -514,10 +524,10 @@ function astCharList() {
     // ast.addNode('CharList','branch');
     if (foundTokensCopy[counter][1] == 'string expression') {
         astchar();
-        ast.endChildren();
+
 
         astCharList();
-        ast.endChildren();
+
 
     } else {
         // e production

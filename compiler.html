@@ -17,6 +17,8 @@
     <div class="col-md-12 header">
         <h3>Colby's Compiler</h3></div>
     <div class="col-md-12"><button class="clickMe" onclick="lexerRun();"><span>COMPILE</span></button></div>
+    <div class="col-md-12"><button class="testCases" onclick="testCaseOne();"><span>Test</span></button><button class="testCases" onclick="testCaseTwo();"><span>Test</span></button></div>
+    <div class="col-md-12"><button class="testCasesBad" onclick="testCaseThree();"><span>Test</span></button><button class="testCasesBad" onclick="testCaseFour();"><span>Test</span></button></div>
     <div class="container col-md-3">
         <div class="form-group box2 col-md-9">
             <label for="comment">Input:</label>
@@ -24,26 +26,26 @@
         </div>
     </div>
     <div class="container col-md-9">
-        <div class="form-group box2 col-md-4">
+        <div class="form-group box2 col-md-5">
             <label for="comment">Lex:</label>
             <textarea id="output" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
         </div>
         <div class="hi col-md-1">
 
         </div>
-        <div class="form-group box2 col-md-4">
+        <div class="form-group box2 col-md-5">
             <label for="comment">Parse:</label>
             <textarea id="parse" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
         </div>
 
-        <div class="form-group box2 col-md-4">
+        <div class="form-group box2 col-md-5">
             <label for="comment">AST:</label>
             <textarea id="ast" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
         </div>
         <div class="hi col-md-1">
 
         </div>
-        <div class="form-group box2 col-md-4">
+        <div class="form-group box2 col-md-5">
             <label for="comment">symbol Table:</label>
             <textarea id="symbolTable" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
         </div>
