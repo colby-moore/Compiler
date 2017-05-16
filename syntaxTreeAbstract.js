@@ -69,8 +69,9 @@ function astProgram() {
     astBlock();
     matchMe('$', counter);
 
-    console.log(newArr);
-		
+    console.log('final output');
+    document.getElementById('symbolTable').value += 'Symbol Table is type, name, scope, and initialized ' + "\n" + symbolTable + "\n"
+
 
     // while(symbolCheck.length) newArr.push(symbolCheck.splice(0,3));
     // console.log(newArr)
@@ -97,7 +98,7 @@ function astBlock() {
     // matchMe('}', counter);
     // ast.addNode('}','branch');
     counter++;
-		scopeCounter--;
+    scopeCounter--;
 
 }
 
@@ -264,19 +265,18 @@ function astAssignmentStatement() {
     ast.addNode('AssignmentStatement', 'branch');
 
 
-  	var symbolObject = astID();
-		if (symbolObject === null) {
-			console.log('ERROR SYMBOL NOT DEFINED');
-		}
-		else{
-	    ast.endChildren();
+    var symbolObject = astID();
+    if (symbolObject === null) {
+        document.getElementById('symbolTable').value += 'ERROR SYMBOL NOT DEFINED' + "\n"
+    } else {
+        ast.endChildren();
 
-	    matchMe('=', counter);
-	    counter++;
+        matchMe('=', counter);
+        counter++;
 
-			astExpr(symbolObject);
-	    ast.endChildren();
-		}
+        astExpr(symbolObject);
+        ast.endChildren();
+    }
 
 
 }
@@ -330,97 +330,83 @@ function astIfStatement() {
 //
 function astExpr(symbolObject, fromAssignemntStatement) {
     // ast.addNode('Expr','branch');
-		if (fromAssignemntStatement) {
-			if (foundTokensCopy[counter][1] == "digit") {
-				if (symbolObject[0] == 'int') {
-					symbolObject[3] = true;
-					console.log('its a gooda digit');
-	        astIntExpr();
-	        ast.endChildren();
-				}
-				else {
-					console.log("ERROR TYPE MISMATCH");
-					console.log('EXPECTED INT: ' + symbolObject[0] );
-				}
+    if (fromAssignemntStatement) {
+        if (foundTokensCopy[counter][1] == "digit") {
+            if (symbolObject[0] == 'int') {
+                symbolObject[3] = true;
+                console.log('its a gooda digit');
+                astIntExpr();
+                ast.endChildren();
+            } else {
+                document.getElementById('symbolTable').value += "ERROR TYPE MISMATCH" + "\n"
+                document.getElementById('symbolTable').value += 'EXPECTED INT: ' + symbolObject[0] + "\n"
+            }
 
-	    }
-			else if (foundTokensCopy[counter][0] == '"') {
-				if (symbolObject[0] == 'string') {
-					symbolObject[3] = true;
-					console.log('its a good string dawg');
-	        astStringExpr();
-	        ast.endChildren();
-				}
-				else {
-					console.log("ERROR TYPE MISMATCH");
-					console.log('EXPECTED STRING: ' + symbolObject[0]);
-				}
+        } else if (foundTokensCopy[counter][0] == '"') {
+            if (symbolObject[0] == 'string') {
+                symbolObject[3] = true;
+                console.log('its a good string dawg');
+                astStringExpr();
+                ast.endChildren();
+            } else {
+                document.getElementById('symbolTable').value += "ERROR TYPE MISMATCH" + "\n"
+                document.getElementById('symbolTable').value += 'EXPECTED STRING: ' + symbolObject[0] + "\n"
+            }
 
-	    }
-			else if (foundTokensCopy[counter][0] == '(' || foundTokensCopy[counter][0] == 'false' || foundTokensCopy[counter][0] == 'true') {
-				if (symbolObject[0] == 'boolean') {
-					symbolObject[3] = true;
-					console.log('its a good boolean dawg');
-	        astBooleanExpr();
-	        ast.endChildren();
-				}
-				else {
-					console.log("ERROR TYPE MISMATCH");
-					console.log('EXPECTED BOOLEAN: ' + symbolObject[0]);
-				}
+        } else if (foundTokensCopy[counter][0] == '(' || foundTokensCopy[counter][0] == 'false' || foundTokensCopy[counter][0] == 'true') {
+            if (symbolObject[0] == 'boolean') {
+                symbolObject[3] = true;
+                console.log('its a good boolean dawg');
+                astBooleanExpr();
+                ast.endChildren();
+            } else {
+                document.getElementById('symbolTable').value += "ERROR TYPE MISMATCH" + "\n"
+                document.getElementById('symbolTable').value += 'EXPECTED BOOLEAN: ' + symbolObject[0] + "\n"
+            }
 
 
-	    }
-			else if (foundTokensCopy[counter][1] == 'identifier') {
+        } else if (foundTokensCopy[counter][1] == 'identifier') {
 
-	        var symbolID = astID();
-					console.log(symbolID);
-					if (symbolID == null) {
-						console.log("UNDEFINED VARIABLE ");
-					}
-					else if (symbolID[3]) {
-						if (symbolObject[0] == symbolID[0]) {
-							console.log("IT IS WEDnsday my dueds");
-							ast.endChildren();
-						}
-						else {
-							console.log('ERROR TYPE MISMATCH');
-						}
-					}
-					else {
-						console.log("WARNING UNINITIALIZED VARIABLE ");
-					}
+            var symbolID = astID();
+            console.log(symbolID);
+            if (symbolID == null) {
+                document.getElementById('symbolTable').value += "UNDEFINED VARIABLE " + "\n"
+            } else if (symbolID[3]) {
+                if (symbolObject[0] == symbolID[0]) {
+                    console.log("IT IS WEDnsday my dueds");
+                    ast.endChildren();
+                } else {
+                    document.getElementById('symbolTable').value += 'ERROR TYPE MISMATCH' + "\n"
+                }
+            } else {
+                document.getElementById('symbolTable').value += "WARNING UNINITIALIZED VARIABLE " + "\n"
+            }
 
 
 
-	    }
+        }
 
-		}
-    else {
-			if (foundTokensCopy[counter][1] == "digit"){
-					console.log('its a gooda digit');
-	        astIntExpr();
-	        ast.endChildren();
-				}
-					else if (foundTokensCopy[counter][0] == '"'){
-		        astStringExpr();
-		        ast.endChildren();
-					}
-					else if (foundTokensCopy[counter][0] == '(' || foundTokensCopy[counter][0] == 'false' || foundTokensCopy[counter][0] == 'true') {
-		        astBooleanExpr();
-		        ast.endChildren();
-					}
-					else if (foundTokensCopy[counter][1] == 'identifier'){
-						var symbolID = astID();
-						console.log(symbolID);
-						if (symbolID == null) {
-							console.log("UNDEFINED VARIABLE ");
-						}
-						else {
-							ast.endChildren();
-						}
+    } else {
+        if (foundTokensCopy[counter][1] == "digit") {
+            console.log('its a gooda digit');
+            astIntExpr();
+            ast.endChildren();
+        } else if (foundTokensCopy[counter][0] == '"') {
+            astStringExpr();
+            ast.endChildren();
+        } else if (foundTokensCopy[counter][0] == '(' || foundTokensCopy[counter][0] == 'false' || foundTokensCopy[counter][0] == 'true') {
+            astBooleanExpr();
+            ast.endChildren();
+        } else if (foundTokensCopy[counter][1] == 'identifier') {
+            var symbolID = astID();
+            console.log(symbolID);
+            if (symbolID == null) {
+                document.getElementById('symbolTable').value += "UNDEFINED VARIABLE "
+            } else {
+                ast.endChildren();
+            }
 
-					}
+        }
     }
 
 
@@ -500,25 +486,24 @@ function astBooleanExpr() {
 //
 function astID() {
     // ast.addNode('ID','branch');
-		var idCheck = foundTokensCopy[counter][0];
-		var idexists = false;
-		var i = 0;
-		for (;i < symbolTable.length; i++){
-			if (idCheck == symbolTable[i][1] && symbolTable[i][2] <= scopeCounter){
-				idexists = true;
-				break;
-			}
-		}
+    var idCheck = foundTokensCopy[counter][0];
+    var idexists = false;
+    var i = 0;
+    for (; i < symbolTable.length; i++) {
+        if (idCheck == symbolTable[i][1] && symbolTable[i][2] <= scopeCounter) {
+            idexists = true;
+            break;
+        }
+    }
 
     astchar();
     ast.endChildren();
 
-		if(idexists){
-			return symbolTable[i];
-		}
-		else {
-			return null;
-		}
+    if (idexists) {
+        return symbolTable[i];
+    } else {
+        return null;
+    }
 
 }
 //
@@ -556,34 +541,34 @@ function asttype() {
         counter++;
         symbolCheck.push(foundTokensCopy[counter][0]);
         symbolCheck.push(scopeCounter);
-				symbolCheck.push(false);
+        symbolCheck.push(false);
 
         scopeSymbolCheck();
-    		symbolCheck = [];
-} else if (foundTokensCopy[counter][1] == 'string') {
-    matchMe('string', counter);
-    symbolCheck.push(foundTokensCopy[counter][1]);
+        symbolCheck = [];
+    } else if (foundTokensCopy[counter][1] == 'string') {
+        matchMe('string', counter);
+        symbolCheck.push(foundTokensCopy[counter][1]);
 
-    counter++;
-    symbolCheck.push(foundTokensCopy[counter][0]);
-    symbolCheck.push(scopeCounter);
-		symbolCheck.push(false);
+        counter++;
+        symbolCheck.push(foundTokensCopy[counter][0]);
+        symbolCheck.push(scopeCounter);
+        symbolCheck.push(false);
 
-    scopeSymbolCheck();
-    symbolCheck = [];
-} else if (foundTokensCopy[counter][1] == 'boolean') {
-    matchMe('boolean', counter);
-    symbolCheck.push(foundTokensCopy[counter][1]);
+        scopeSymbolCheck();
+        symbolCheck = [];
+    } else if (foundTokensCopy[counter][1] == 'boolean') {
+        matchMe('boolean', counter);
+        symbolCheck.push(foundTokensCopy[counter][1]);
 
-    counter++;
-    symbolCheck.push(foundTokensCopy[counter][0]);
-    symbolCheck.push(scopeCounter);
-		symbolCheck.push(false);
+        counter++;
+        symbolCheck.push(foundTokensCopy[counter][0]);
+        symbolCheck.push(scopeCounter);
+        symbolCheck.push(false);
 
 
-    scopeSymbolCheck();
-    symbolCheck = [];
-}
+        scopeSymbolCheck();
+        symbolCheck = [];
+    }
 
 }
 
