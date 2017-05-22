@@ -27,14 +27,14 @@ var foundTokensCopy = [];
 var state;
 var lexemecount = [];
 var lexerBegin = 0;
-var tokenCheck = false;
-var failCount = 0;
+var tokenCheck;
+// var failCount = 0;
 var programCounter;
 var tempToken;
 
-function failReset() {
-    failCount = 0;
-}
+// function failReset() {
+//     failCount = 0;
+// }
 
 var newToken = class {
     constructor(desc, type, line_number) {
@@ -46,7 +46,7 @@ var newToken = class {
 
 function lexerRun() {
     // someFunction();
-    failReset();
+    // failReset();
 
     lexer();
 }
@@ -69,7 +69,10 @@ function lexer(isToken) {
         current = input_text[lexerBegin];
         status = true;
 
-
+        console.log("this is the current " + current.charCodeAt(0));
+        console.log(tokenCheck);
+        tokenCheck = false;
+        isSpace(current);
         isLBracket(current);
         isRBracket(current);
         isLParen(current);
@@ -80,18 +83,18 @@ function lexer(isToken) {
         checkForMultiChars(newToken, lexerBegin, input_text);
         checkForSymbolTokens(newToken, lexerBegin, input_text);
         checkForString(newToken, lexerBegin, input_text);
+        console.log(tokenCheck);
 
 
-
+        if (tokenCheck == false) {
+            document.getElementById('output').value += 'ERROR: Lex unsuccessful, killing lexer.'
+            throw new Error("ERROR: Lex unsuccessful, killing lexer.");
+        }
 
 
     }
-    if (failCount == 0 || tokenCheck != false) {
-        document.getElementById('output').value += 'LEX SUCCESSFUL: MOVING TO PARSE.'
-        parser();
-    } else if (failCount > 0 || tokenCheck == false) {
-        document.getElementById('output').value += 'ERROR: Lex unsuccessful, killing lexer.'
-    }
+    parser();
+
 }
 
 function testCaseTwo() {
@@ -349,7 +352,6 @@ function checkForMultiChars(newToken, forward, input_text) {
                     document.getElementById('output').value += 'unrecognized token' + "\n"
                     console.log('unrecognized token');
                     tokenCheck = false;
-                    failCount++;
                     run = false;
                     break;
 
@@ -438,7 +440,6 @@ function checkForSymbolTokens(newToken, forward, input_text) {
                 } else {
                     console.log('unrecognized token');
                     tokenCheck = false;
-                    failCount++;
                     run = false;
                     break;
                 }
@@ -493,8 +494,7 @@ function checkForString(newToken, forward, input_text) {
                     state = 2;
                 } else {
                     // TODO: might need to add here
-                    tokenCheck = false;
-                    failCount++;
+
                     console.log('invalid string');
                     run = false;
                     break;
@@ -541,7 +541,6 @@ function checkForString(newToken, forward, input_text) {
                 } else {
                     console.log("invalid string");
                     tokenCheck = false;
-                    failCount++;
                     run = false;
                     break;
                 }
@@ -699,6 +698,18 @@ function isQuote(current) {
         document.getElementById('output').value += "lexer: token found" + ' ----->  ' + foundTokens[1] + " " + foundTokens[0] + "\n"
         tokenCheck = true;
         foundTokens = [];
+    } else {
+
+        //document.getElementById('output').value += '0';
+
+    }
+}
+
+function isSpace(current) {
+    if (current.search(T_Space) != -1) {
+        var isToken = new newToken(current, "space", line_number);
+        tokenCheck = true;
+
     } else {
 
         //document.getElementById('output').value += '0';
