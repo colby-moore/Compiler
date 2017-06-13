@@ -41,6 +41,7 @@ var newToken = class {
         this.desc = desc;
         this.type = type;
         this.line_number = line_number;
+
     }
 }
 
@@ -69,8 +70,8 @@ function lexer(isToken) {
         current = input_text[lexerBegin];
         status = true;
 
-        console.log("this is the current " + current.charCodeAt(0));
-        console.log(tokenCheck);
+        // console.log("this is the current " + current.charCodeAt(0));
+        // console.log(tokenCheck);
         tokenCheck = false;
         isSpace(current);
         isLBracket(current);
@@ -83,7 +84,7 @@ function lexer(isToken) {
         checkForMultiChars(newToken, lexerBegin, input_text);
         checkForSymbolTokens(newToken, lexerBegin, input_text);
         checkForString(newToken, lexerBegin, input_text);
-        console.log(tokenCheck);
+        // console.log(tokenCheck);
 
 
         if (tokenCheck == false) {
@@ -186,7 +187,7 @@ function checkForMultiChars(newToken, forward, input_text) {
             case 0:
                 // console.log('this is the multichar forward ' + forward);
                 if ((input_text[forward]).search(T_Char) != -1) {
-                    console.log('this is the current character at case 0' + input_text[forward]);
+                    // console.log('this is the current character at case 0' + input_text[forward]);
                     tempToken += input_text[forward];
                     forward++;
                     state = 1;
@@ -197,7 +198,7 @@ function checkForMultiChars(newToken, forward, input_text) {
                     break;
                 }
             case 1:
-                console.log('this is the current character at case 1' + input_text[forward]);
+                // console.log('this is the current character at case 1' + input_text[forward]);
                 if (input_text[forward] == undefined) {
                     // console.log('this is the current character at case 1' + input_text[forward]);
                     var isToken = new newToken(tempToken, "identifier", line_number);
@@ -214,7 +215,7 @@ function checkForMultiChars(newToken, forward, input_text) {
                     run = false;
                     break;
                 } else if ((input_text[forward]).search(T_Char) != -1) {
-                    console.log('this is the current character at case 1' + input_text[forward]);
+                    // console.log('this is the current character at case 1' + input_text[forward]);
                     tempToken += input_text[forward];
                     forward++;
                     state = 2;

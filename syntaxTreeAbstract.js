@@ -80,6 +80,7 @@ function astProgram() {
         // console.log(ast.toString());
         //do we need a counter here still?
     counter++;
+    runCodeGen();
 }
 
 
@@ -323,10 +324,21 @@ function astExpr(symbolObject, fromAssignemntStatement) {
     // ast.addNode('Expr','branch');
     if (fromAssignemntStatement) {
         if (foundTokensCopy[counter][1] == "digit") {
-            if (symbolObject[0] == 'int') {
+            if (foundTokensCopy[counter+2][0] == '"'){
+              document.getElementById('symbolCheck').value += "ERROR TYPE MISMATCH" + "\n"
+              document.getElementById('symbolCheck').value += 'EXPECTED ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
+              symbolObject[3] = true;
+              astIntExpr();
+            }
+            else if (symbolObject[0] == 'int') {
                 symbolObject[3] = true;
                 console.log('its a gooda digit');
 								document.getElementById('symbolCheck').value += 'ALL GOOD HERE!: ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
+                console.log(foundTokensCopy[counter+2][1] + "THIS IS THE LOGGGGG");
+                if (foundTokensCopy[counter+2][0] == '"'){
+                  document.getElementById('symbolCheck').value += "ERROR TYPE MISMATCH" + "\n"
+                  document.getElementById('symbolCheck').value += 'EXPECTED ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
+                }
                 astIntExpr();
 
             }
