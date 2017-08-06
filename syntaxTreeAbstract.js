@@ -9,14 +9,27 @@ var symbolCheck = [];
 var temp;
 var newArr = [];
 
+array =[
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ['0','0','0','0','0','0','0','0'],
+        ];
+        var count = 0;
 
 function scopeSymbolCheck() {
     if (symbolTable.length == 0) {
         symbolTable.push(symbolCheck);
-        console.log(symbolTable);
+        // console.log(symbolTable);
 
 
-        console.log(newArr)
+        // console.log(newArr)
     } else {
         var alreadyInSymbolTable = false;
         for (var i = 0; i < symbolTable.length; i++) {
@@ -39,9 +52,74 @@ function scopeSymbolCheck() {
 }
 
 function matchMe(token, counter) {
-
     if (token == foundTokensCopy[counter][0]) {
         ast.addNode(token, 'leaf');
+        // throw in call for function to check assignment for code gen
+        //
+        //
+        var nameCount = 0;
+        if (ast.cur.name == "Block") {
+          console.log(ast.cur.children.length);
+          console.log("AssignmentStatement is here");
+          for (var i = 0; i < ast.cur.children.length; i++) {
+            if (ast.cur.children[nameCount].name == "AssignmentStatement") {
+              console.log("We made it AssignmentStatement");
+              // This code will check/set whatever variable is being assigned
+              // for example int a is defined and A = 5
+            }
+            console.log(ast.cur.children[nameCount].name);
+            nameCount++;
+          }
+        }
+        else {
+          if (array[0][0] == '0'){
+            console.log("round one");
+            codeGenRulesRoundOne(array);
+          }
+          else if (array[0][5] == '0') {
+            console.log("round two");
+            codeGenRulesRoundTwo(array);
+          }
+          else if (array[1][0] == '0') {
+            console.log("round three");
+            codeGenRulesRoundThree(array);
+          }
+          else {
+            console.log("NO WORKKK");
+          }
+        }
+        // if (array[0][0] == '0'){
+        //   console.log("round one");
+        //   codeGenRulesRoundOne(array);
+        // }
+        // else if (array[0][5] == '0') {
+        //   console.log("round two");
+        //   codeGenRulesRoundTwo(array);
+        // }
+        // else if (array[1][0] == '0') {
+        //   console.log("round three");
+        //   codeGenRulesRoundThree(array);
+        // }
+        // else {
+        //   console.log("NO WORKKK");
+        // }
+
+        // if (ast.cur.name == "VarDecl") {
+        //   console.log("FOUND CODE GEN FAMMMMM");
+        //   if (ast.cur.children[0].name == "int") {
+        //     console.log("Code Gen child object");
+        //   }
+          // runCodeGen();
+          // if (ast.cur == "int") {
+          //   console.log("FOUND CODE GEN CHILD INT");
+          // }
+
+
+
+
+        // }
+        console.log("This is the current AST node");
+        console.log(ast.cur);
         console.log('expected Token: ' + token + ' Token Found: ' + foundTokensCopy[counter][0]);
     } else {
 
@@ -53,6 +131,75 @@ function matchMe(token, counter) {
 
 
 }
+
+// function createCodeGenTable(arr){
+//   for (var i = 0; i < arr.length; i++) {
+//       for (var j = 0; j < arr[i].length; j++) {
+//         count++;
+//         if (count == 8) {
+//           document.getElementById('codeGeneration').value += arr[i][j]+ "\n";
+//           count = 0;
+//         }
+//         else{document.getElementById('codeGeneration').value += arr[i][j]}
+//
+//
+//       }
+//   }
+// }
+
+// function runCodeGen(arr){
+//
+// var arr =[
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ],arrText='';
+//         var count = 0;
+//
+//         // for (var i = 0; i < arr.length; i++) {
+//         //     for (var j = 0; j < arr[i].length; j++) {
+//         //       count++;
+//         //       if (count == 8) {
+//         //         document.getElementById('codeGeneration').value += arr[i][j]+ "\n";
+//         //         count = 0;
+//         //       }
+//         //       else{document.getElementById('codeGeneration').value += arr[i][j]}
+//         //
+//         //
+//         //     }
+//         //
+//         // }
+//         console.log(arr[0]);
+//         arr[0][0] = "A9"
+//         arr[0][1] = "0"
+//         arr[0][2] = "8D"
+//         arr[0][3] = "T0"
+//         arr[0][4] = "XX"
+//
+//         console.log(arr[0]);
+//
+//         // table();
+//         for (var i = 0; i < arr.length; i++) {
+//             for (var j = 0; j < arr[i].length; j++) {
+//               count++;
+//               if (count == 8) {
+//                 document.getElementById('codeGeneration').value += arr[i][j]+ "\n";
+//                 count = 0;
+//               }
+//               else{document.getElementById('codeGeneration').value += arr[i][j]}
+//
+//
+//             }
+//
+//         }
+// }
 
 function astRun() {
     //console.log(foundTokensCopy[counter][0]);
@@ -69,9 +216,7 @@ function astProgram() {
     astBlock();
     matchMe('$', counter);
 
-    console.log('final output');
     document.getElementById('symbolTable').value += 'Symbol Table is type, name, scope, and initialized ' + "\n" + symbolTable + "\n"
-
 
     // while(symbolCheck.length) newArr.push(symbolCheck.splice(0,3));
     // console.log(newArr)
@@ -80,7 +225,7 @@ function astProgram() {
         // console.log(ast.toString());
         //do we need a counter here still?
     counter++;
-    runCodeGen();
+    // runCodeGen();
 }
 
 
@@ -108,7 +253,7 @@ function astBlock() {
 //					       ::== e
 function astStatementList() {
     // Assign operator = here i think is wrong... need to find an identifier?
-    console.log("got to statementlist ");
+    // console.log("got to statementlist ");
     if (foundTokensCopy[counter][0] == 'print') {
         astStatement();
 
@@ -116,7 +261,7 @@ function astStatementList() {
         astStatementList();
 
         //
-        console.log('got past the if');
+        // console.log('got past the if');
 
     }
     // extends to here for the identifier question
@@ -129,7 +274,7 @@ function astStatementList() {
         //
 
     } else if (foundTokensCopy[counter][0] == 'int') {
-        console.log('got past the if type');
+        // console.log('got past the if type');
         astStatement();
         //
 
@@ -186,9 +331,9 @@ function astStatementList() {
 // //          			::== IfStatement
 // //          			::== Block
 function astStatement() {
-    console.log('got to here');
+    // console.log('got to here');
     if (foundTokensCopy[counter][0] == 'print') {
-        console.log('found print');
+        // console.log('found print');
         astPrintStatement();
         //
         //
@@ -199,7 +344,7 @@ function astStatement() {
         astAssignmentStatement();
         //
 
-        console.log("got to identifier 2");
+        // console.log("got to identifier 2");
 
     } else if (foundTokensCopy[counter][0] == 'int') {
         astVarDecl();
@@ -332,9 +477,9 @@ function astExpr(symbolObject, fromAssignemntStatement) {
             }
             else if (symbolObject[0] == 'int') {
                 symbolObject[3] = true;
-                console.log('its a gooda digit');
+                // console.log('its a gooda digit');
 								document.getElementById('symbolCheck').value += 'ALL GOOD HERE!: ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
-                console.log(foundTokensCopy[counter+2][1] + "THIS IS THE LOGGGGG");
+                // console.log(foundTokensCopy[counter+2][1] + "THIS IS THE LOGGGGG");
                 if (foundTokensCopy[counter+2][0] == '"'){
                   document.getElementById('symbolCheck').value += "ERROR TYPE MISMATCH" + "\n"
                   document.getElementById('symbolCheck').value += 'EXPECTED ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
@@ -343,8 +488,8 @@ function astExpr(symbolObject, fromAssignemntStatement) {
 
             }
 						else {
-								console.log("ERROR TYPE MISMATCH");
-								console.log('EXPECTED INT: ' + symbolObject[0]);
+								// console.log("ERROR TYPE MISMATCH");
+								// console.log('EXPECTED INT: ' + symbolObject[0]);
                 document.getElementById('symbolCheck').value += "ERROR TYPE MISMATCH" + "\n"
                 document.getElementById('symbolCheck').value += 'EXPECTED ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
             }
@@ -352,14 +497,14 @@ function astExpr(symbolObject, fromAssignemntStatement) {
         } else if (foundTokensCopy[counter][0] == '"') {
             if (symbolObject[0] == 'string') {
                 symbolObject[3] = true;
-                console.log('its a good string dawg');
+                // console.log('its a good string dawg');
 								document.getElementById('symbolCheck').value += 'ALL GOOD HERE!: ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
                 astStringExpr();
 
             }
 						else {
-								console.log("ERROR TYPE MISMATCH");
-								console.log('EXPECTED STRING: ' + symbolObject[0]);
+								// console.log("ERROR TYPE MISMATCH");
+								// console.log('EXPECTED STRING: ' + symbolObject[0]);
                 document.getElementById('symbolCheck').value += "ERROR TYPE MISMATCH" + "\n"
                 document.getElementById('symbolCheck').value += 'EXPECTED ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
             }
@@ -367,14 +512,14 @@ function astExpr(symbolObject, fromAssignemntStatement) {
         } else if (foundTokensCopy[counter][0] == '(' || foundTokensCopy[counter][0] == 'false' || foundTokensCopy[counter][0] == 'true') {
             if (symbolObject[0] == 'boolean') {
                 symbolObject[3] = true;
-                console.log('its a good boolean dawg');
+                // console.log('its a good boolean dawg');
 								document.getElementById('symbolCheck').value += 'ALL GOOD HERE!: ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
                 astBooleanExpr();
 
             }
 						else {
-								console.log("ERROR TYPE MISMATCH");
-								console.log('EXPECTED BOOLEAN: ' + symbolObject[0]);
+								// console.log("ERROR TYPE MISMATCH");
+								// console.log('EXPECTED BOOLEAN: ' + symbolObject[0]);
                 document.getElementById('symbolCheck').value += "ERROR TYPE MISMATCH" + "\n"
                 document.getElementById('symbolCheck').value += 'EXPECTED ' + symbolObject[0] + ": " + symbolObject[1] + "\n"
             }
@@ -383,24 +528,24 @@ function astExpr(symbolObject, fromAssignemntStatement) {
         } else if (foundTokensCopy[counter][1] == 'identifier') {
 
             var symbolID = astID();
-            console.log(symbolID);
+            // console.log(symbolID);
             if (symbolID == null) {
-								console.log("UNDEFINED VARIABLE");
+								// console.log("UNDEFINED VARIABLE");
                 document.getElementById('symbolCheck').value += "UNDEFINED VARIABLE " + "\n"
             }
 						else if (symbolID[3]) {
                 if (symbolObject[0] == symbolID[0]) {
-                    console.log("IT IS WEDnsday my dueds");
+                    // console.log("IT IS WEDnsday my dueds");
 
                 }
 								else {
-										console.log("ERROR TYPE MISMATCH");
-										console.log('EXPECTED ID: ' + symbolObject[0]);
+										// console.log("ERROR TYPE MISMATCH");
+										// console.log('EXPECTED ID: ' + symbolObject[0]);
                     document.getElementById('symbolCheck').value += 'ERROR TYPE MISMATCH' + "\n"
                 }
             }
 						else {
-							console.log('WARNING UNINITIALIZED VARIABLE');
+							// console.log('WARNING UNINITIALIZED VARIABLE');
                 document.getElementById('symbolCheck').value += "WARNING UNINITIALIZED VARIABLE " + "\n"
             }
 
@@ -411,7 +556,7 @@ function astExpr(symbolObject, fromAssignemntStatement) {
     }
 		else {
         if (foundTokensCopy[counter][1] == "digit") {
-            console.log('its a gooda digit');
+            // console.log('its a gooda digit');
             astIntExpr();
 
         }
@@ -425,7 +570,7 @@ function astExpr(symbolObject, fromAssignemntStatement) {
         }
 				else if (foundTokensCopy[counter][1] == 'identifier') {
             var symbolID = astID();
-            console.log(symbolID);
+            // console.log(symbolID);
             if (symbolID == null) {
                 document.getElementById('symbolCheck').value += "WARNING: UNDEFINED VARIABLE " + "\n"
             }
@@ -448,7 +593,7 @@ function astIntExpr() {
         astdigit();
 
 
-        console.log("this is the next look ahead: " + foundTokensCopy[counter][0]);
+        // console.log("this is the next look ahead: " + foundTokensCopy[counter][0]);
         if (foundTokensCopy[counter][0] == '+') {
             astintop();
 
@@ -657,7 +802,7 @@ function astintop() {
 //-----------------------------------------
 // treeDemo.js
 //
-// By Alan G. Labouseur, based on the 2009
+// By Alan G. Labouseur, based on the 209
 // work by Michael Ardizzone and Tim Smith.
 //-----------------------------------------
 
