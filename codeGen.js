@@ -3,10 +3,12 @@ var counter = 0;
 backpatchArray = [];
 
 function storingTemp(){
-  var temp;
-  arrayOfThings = [5,2,3]
-  temp = arrayOfThings[0]
-  console.log("this is temp" + temp);
+  var a = 5
+  arrayOfThings = []
+  if (a = 5) {
+    arrayOfThings.push("A9","00","8D","T1","XX")
+  }
+  console.log(arrayOfThings);
 }
 
 
@@ -68,11 +70,12 @@ function codeGenRulesRoundOne(array){
       array[0][2] = "8D"
       array[0][3] = "T0"
       array[0][4] = "XX"
+
     }
     else if (ast.cur.children[0].name == "string") {
       backpatchArray.push(foundTokensCopy[counter+1][0]);
       array[0][0] = "A9"
-      array[0][1] = "5D"
+      array[0][1] = "location"
       array[0][2] = "8D"
       array[0][3] = "T0"
       array[0][4] = "XX"
@@ -88,6 +91,7 @@ function codeGenRulesRoundOne(array){
     console.log(array);
     console.log("this is the packpatch storage" + " " + backpatchArray);
   }
+  showTable(array);
 }
 
 function codeGenRulesRoundTwo(array){
@@ -183,22 +187,7 @@ function codeGenRulesRoundThree(array){
 //
 // }
 // table();
-function showTable(array){
-  var count = 0;
-  for (var i = 0; i < array.length; i++) {
-      for (var j = 0; j < array[i].length; j++) {
-        count++;
-        if (count == 8) {
-          document.getElementById('codeGeneration').value += array[i][j]+ "\n";
-          count = 0;
-        }
-        else{document.getElementById('codeGeneration').value += array[i][j]}
 
-
-      }
-
-  }
-}
 
 
 // function table(){

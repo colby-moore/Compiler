@@ -8,20 +8,26 @@ var symbolCheck = [];
 
 var temp;
 var newArr = [];
+arrayOfObjects = [];
 
-array =[
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ['0','0','0','0','0','0','0','0'],
-        ];
-        var count = 0;
+arrayForCodeGen = [];
+arrayForVarDecl = [];
+
+var stringHeapVar;
+
+// array =[
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ['0','0','0','0','0','0','0','0'],
+//         ];
+//         var count = 0;
 
 function scopeSymbolCheck() {
     if (symbolTable.length == 0) {
@@ -54,65 +60,82 @@ function scopeSymbolCheck() {
 function matchMe(token, counter) {
     if (token == foundTokensCopy[counter][0]) {
         ast.addNode(token, 'leaf');
-        // throw in call for function to check assignment for code gen
-        //
-        //
-        var nameCount = 0;
         if (ast.cur.name == "Block") {
-          console.log(ast.cur.children.length);
-          console.log("AssignmentStatement is here");
+          var nameCount = 0;
+          var tempCounter = 0;
           for (var i = 0; i < ast.cur.children.length; i++) {
-            if (ast.cur.children[nameCount].name == "AssignmentStatement") {
-              console.log("We made it AssignmentStatement");
-              // This code will check/set whatever variable is being assigned
-              // for example int a is defined and A = 5
+            if (ast.cur.children[nameCount].name == "VarDecl") {
+
+              // Type: int, string, bool | VarDecl: identifier | Backpatch: T + counter
+              var declarations = {type:ast.cur.children[nameCount].children[0].name, varDecl:ast.cur.children[nameCount].children[1].name, backpatch:"T" + tempCounter };
+              if (ast.cur.children[nameCount].children[0].name == "int") {
+                console.log("INT");
+                arrayForVarDecl.push(declarations);
+                console.log(arrayForVarDecl);
+                arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"XX")
+
+              }
+              else if (ast.cur.children[nameCount].children[0].name == "string") {
+                console.log("STRING");
+                arrayForVarDecl.push(declarations);
+                console.log(arrayForVarDecl);
+              }
+              tempCounter++;
+            }
+            else if (ast.cur.children[nameCount].name == "AssignmentStatement") {
+                // var tempObject = {var:ast.cur.children[nameCount].children[0].name, equals:ast.cur.children[nameCount].children[0+1].name};
+                // console.log(tempObject);
+                // arrayOfObjects.push(tempObject);
+                // console.log(arrayOfObjects);
+
+                var cur = 0;
+                for (var i = 0; i < arrayForVarDecl.length; i++) {
+                  console.log("Check these out");
+                  console.log(ast.cur.children[nameCount].children[0].name);
+                  console.log(arrayForVarDecl[cur].varDecl);
+                  var tempTable = arrayForVarDecl[cur].backpatch;
+                  // if  current nodes name  ==  one of the nodes from variable declaration
+                  if (ast.cur.children[nameCount].children[0].name == arrayForVarDecl[cur].varDecl && arrayForVarDecl[cur].type == "int") {
+                    var addZero = "0" + ast.cur.children[nameCount].children[1].name;
+                    arrayForCodeGen.push("A9",addZero,"8D",tempTable,"XX");
+                  }
+                  else if (ast.cur.children[nameCount].children[0].name == arrayForVarDecl[cur].varDecl && arrayForVarDecl[cur].type == "string") {
+                    console.log("STRINGGG");
+                    stringHeapVar = ast.cur.children[nameCount].children[1].name;
+                    stringHeap();
+                    arrayForCodeGen.push("A9",stringHeapVar,"8D",tempTable,"XX");
+                  }
+                  cur++;
+                }
+
+              // now we need to record what the AssignmentStatement says
+              // in test cast a = 5 so we can go to our code gen and replace 00 with 05
+
+              // if (tempAssignVarArray[0] == backpatchArray[0] ) {
+              //   console.log("THEY MATCHHH!!!!!!");
+              // }
+            }
+            else {
+              console.log("$ end of block");
+              var leftoverCodeGenArray = [];
+              console.log(arrayForCodeGen.length);
+              if (arrayForCodeGen.length < 80) {
+                console.log("Less than 80");
+                var leftoverCodeGen = 80 - arrayForCodeGen.length;
+                console.log(leftoverCodeGen);
+                for (var i = 0; i < leftoverCodeGen; i++) {
+                  arrayForCodeGen.push("00");
+                }
+                // console.log("leftoverCodeGenArray" + " " + leftoverCodeGenArray);
+                // arrayForCodeGen.concat(leftoverCodeGenArray);
+                // console.log(arrayForCodeGen);
+              }
             }
             console.log(ast.cur.children[nameCount].name);
             nameCount++;
           }
+          showTable();
         }
-        else {
-          if (array[0][0] == '0'){
-            console.log("round one");
-            codeGenRulesRoundOne(array);
-          }
-          else if (array[0][5] == '0') {
-            console.log("round two");
-            codeGenRulesRoundTwo(array);
-          }
-          else if (array[1][0] == '0') {
-            console.log("round three");
-            codeGenRulesRoundThree(array);
-          }
-          else {
-            console.log("NO WORKKK");
-          }
-        }
-        // if (array[0][0] == '0'){
-        //   console.log("round one");
-        //   codeGenRulesRoundOne(array);
-        // }
-        // else if (array[0][5] == '0') {
-        //   console.log("round two");
-        //   codeGenRulesRoundTwo(array);
-        // }
-        // else if (array[1][0] == '0') {
-        //   console.log("round three");
-        //   codeGenRulesRoundThree(array);
-        // }
-        // else {
-        //   console.log("NO WORKKK");
-        // }
-
-        // if (ast.cur.name == "VarDecl") {
-        //   console.log("FOUND CODE GEN FAMMMMM");
-        //   if (ast.cur.children[0].name == "int") {
-        //     console.log("Code Gen child object");
-        //   }
-          // runCodeGen();
-          // if (ast.cur == "int") {
-          //   console.log("FOUND CODE GEN CHILD INT");
-          // }
 
 
 
@@ -132,74 +155,42 @@ function matchMe(token, counter) {
 
 }
 
-// function createCodeGenTable(arr){
-//   for (var i = 0; i < arr.length; i++) {
-//       for (var j = 0; j < arr[i].length; j++) {
-//         count++;
-//         if (count == 8) {
-//           document.getElementById('codeGeneration').value += arr[i][j]+ "\n";
-//           count = 0;
-//         }
-//         else{document.getElementById('codeGeneration').value += arr[i][j]}
-//
-//
-//       }
-//   }
-// }
+// This function stores strings in the heap
+function stringHeap(){
+  console.log(stringHeapVar);
+  var lengthForHeap = stringHeapVar.length;
+  var newHeapVar = stringHeapVar.slice();
+  console.log("new heap var" + newHeapVar);
+  console.log("heapvar 1:" + " "+ newHeapVar[0]);
+  console.log("heapvar 2:" + " "+ newHeapVar[1]);
+  console.log("heapvar 3:" + " "+ newHeapVar[2]);
+  console.log("heapvar 4:" + " "+ newHeapVar[3]);
+  var whereToHeap = 80 - stringHeapVar.length-1
+  console.log("Where to heap" + " " + whereToHeap);
+  var fakeArray = [];
+  fakeArray.push("A9","00","8D","T0","XX","00","00","00","00","00","00","00","00","00","00","00","00");
+  console.log(fakeArray);
+  var tempLength = fakeArray.length - stringHeapVar.length;
+  fakeArray.splice(tempLength, 4, newHeapVar[0], newHeapVar[1], newHeapVar[2], newHeapVar[3])
+  console.log(fakeArray);
+}
 
-// function runCodeGen(arr){
-//
-// var arr =[
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ['0','0','0','0','0','0','0','0'],
-//         ],arrText='';
-//         var count = 0;
-//
-//         // for (var i = 0; i < arr.length; i++) {
-//         //     for (var j = 0; j < arr[i].length; j++) {
-//         //       count++;
-//         //       if (count == 8) {
-//         //         document.getElementById('codeGeneration').value += arr[i][j]+ "\n";
-//         //         count = 0;
-//         //       }
-//         //       else{document.getElementById('codeGeneration').value += arr[i][j]}
-//         //
-//         //
-//         //     }
-//         //
-//         // }
-//         console.log(arr[0]);
-//         arr[0][0] = "A9"
-//         arr[0][1] = "0"
-//         arr[0][2] = "8D"
-//         arr[0][3] = "T0"
-//         arr[0][4] = "XX"
-//
-//         console.log(arr[0]);
-//
-//         // table();
-//         for (var i = 0; i < arr.length; i++) {
-//             for (var j = 0; j < arr[i].length; j++) {
-//               count++;
-//               if (count == 8) {
-//                 document.getElementById('codeGeneration').value += arr[i][j]+ "\n";
-//                 count = 0;
-//               }
-//               else{document.getElementById('codeGeneration').value += arr[i][j]}
-//
-//
-//             }
-//
-//         }
-// }
+function showTable(){
+  var count = 0;
+  for (var i = 0; i < arrayForCodeGen.length; i++) {
+    count++;
+    if (count == 8) {
+      document.getElementById('codeGeneration').value += arrayForCodeGen[i] + "\n";
+      count = 0;
+    }
+    else {
+      document.getElementById('codeGeneration').value += arrayForCodeGen[i] + " "
+
+    }
+
+  }
+
+}
 
 function astRun() {
     //console.log(foundTokensCopy[counter][0]);
