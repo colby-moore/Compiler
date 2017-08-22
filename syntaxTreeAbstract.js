@@ -4,6 +4,7 @@ var ast = new astTree();
 var scopeCounter = -1;
 
 var symbolTable = [];
+var symbolTableCopy = symbolTable;
 var symbolCheck = [];
 
 var temp;
