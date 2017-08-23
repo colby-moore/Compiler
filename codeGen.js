@@ -131,14 +131,13 @@ function codeGenInitiate(){
         console.log("FOUND PRINT HOMIEEE");
         console.log(arrayForVarDecl);
         for (var i = 0; i < arrayForVarDecl.length; i++) {
-          if (ast.cur.children[nameCount].children[0].name == arrayForVarDecl[i].varDecl && arrayForVarDecl[i].scope == curScope ) {
+          if (ast.cur.children[nameCount].children[0].name == arrayForVarDecl[i].varDecl && arrayForVarDecl[i].scope == curScope && arrayForVarDecl[i].type == "int" ) {
             console.log("FOUND PRINT HOMIEEE AGAAAIIINNN");
-            console.log(ast.cur.children[nameCount].children);
-            console.log(arrayForVarDecl);
-            console.log(arrayForVarDecl[i].backpatch);
             console.log(ast.cur.children[nameCount].children[0].name);
-            console.log(arrayForVarDecl[i].varDecl);
             arrayForCodeGen.push("AC",arrayForVarDecl[i].backpatch,"00","A2","01","FF");
+          }
+          else if (ast.cur.children[nameCount].children[0].name == arrayForVarDecl[i].varDecl && arrayForVarDecl[i].scope == curScope && arrayForVarDecl[i].type == "string" ) {
+              arrayForCodeGen.push("AC",arrayForVarDecl[i].backpatch,"00","A2","02","FF");
           }
         }
         if (arrayForVarDecl.length == 0 && ast.cur.children[nameCount].children[0].name.length > 1){
