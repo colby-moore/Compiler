@@ -1,6 +1,8 @@
 # compilers
 My awesome compiler
 
+To try out my compiler, download the repo to desktop and open the compiler.html file.
+
 Compiler Schedule:
 Project One - Build an interesting lexer.
 Lab 1: Making tokens with your Lexer
