@@ -1,3 +1,7 @@
+#input, #output, #parse, #ast, #symbolCheck, #symbolTable, #codeGeneration  {
+  border-radius: 4% ;
+}
+
 .header {
     height: 90px;
     color: white;

@@ -1,0 +1,82 @@
+{
+int a
+a = 5
+print (a)
+}$
+
+
+{
+int a
+a = 5
+int b
+b = 6
+print (b)
+}$
+
+
+{
+int a
+a = 5
+{
+int b
+b = 6
+print (b)
+}
+print (a)
+}$
+
+
+{
+int a
+a = 5
+boolean b
+b = true
+string c
+c = "alan"
+print (a)
+print (b)
+print (c)
+}$
+
+
+{
+int a
+a = 5
+boolean b
+b = true
+string c
+c = "alan"
+print (a)
+print (b)
+print (c)
+{
+int d
+d = 6
+string e
+e = "cgen"
+boolean f
+f = false
+print (d)
+print (e)
+print (f)
+}
+}$
+
+
+{
+print (1)
+print("one")
+print (2)
+print("two")
+print (3)
+print("three")
+}$
+
+{
+print (1)
+print("one")
+{
+print (3)
+print ("three")
+}
+}$

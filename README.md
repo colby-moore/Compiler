@@ -1,7 +1,10 @@
-# compilers
+#compilers
 My awesome compiler
 
 To try out my compiler, download the repo to desktop and open the compiler.html file.
+
+For test cases:
+Open up codeGenTestCases.txt and copy and paste test cases into the input text area and press compile, or go ahead and give the pre programmed test case buttons a click and press compile.
 
 Compiler Schedule:
 Project One - Build an interesting lexer.

@@ -51,16 +51,39 @@
             <textarea id="symbolCheck" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
         </div>
     </div>
-    <div class="hi col-md-5"></div>
-    <div class="form-group box2 col-md-4">
-        <label for="comment">Symbol Table:</label>
-        <textarea id="symbolTable" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
+    <!-- <div class="hi col-md-3"></div>
+    <div class="container col-md-9">
+      <div class="form-group box2 col-md-5">
+          <label for="comment">Symbol Table:</label>
+          <textarea id="symbolTable" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
+      </div>
+      <div class="hi col-md-5"></div>
+      <div class="form-group box2 col-md-5">
+          <label for="comment">Code Generation:</label>
+          <textarea id="codeGeneration" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
+      </div>
+    </div> -->
+
+    <div class="container col-md-3">
+        <div class="form-group box2 col-md-9">
+            <!-- <label for="comment">Input:</label>
+            <textarea id="input" class="form-control" rows="24" style="resize: none" placeholder="Input text..."></textarea> -->
+        </div>
     </div>
-    <div class="hi col-md-5"></div>
-    <div class="form-group box2 col-md-4">
-        <label for="comment">Code Generation:</label>
-        <textarea id="codeGeneration" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
+    <div class="container col-md-9">
+        <div class="form-group box2 col-md-5">
+            <label for="comment">Symbol Table:</label>
+            <textarea id="symbolTable" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
+        </div>
+        <div class="hi col-md-1">
+        </div>
+        <div class="form-group box2 col-md-5">
+            <label for="comment">Code Generation:</label>
+            <textarea id="codeGeneration" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
+        </div>
     </div>
+
+
     <div class="hi col-md-3"></div>
 
 
@@ -77,46 +100,4 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 </body>
-
-<!-- <script>
-  function Node(value) {
-
-      this.value = value;
-      this.children = [];
-      this.parent = null;
-
-      this.setParentNode = function(node) {
-          this.parent = node;
-      }
-
-      this.getParentNode = function() {
-          return this.parent;
-      }
-
-      this.addChild = function(node) {
-          node.setParentNode(this);
-          this.children[this.children.length] = node;
-      }
-
-      this.getChildren = function() {
-          return this.children;
-      }
-
-      this.removeChildren = function() {
-          this.children = [];
-      }
-  }
-
-  var root = new Node('root');
-  root.addChild(new Node('child 0'));
-  root.addChild(new Node('child 1'));
-  var children = root.getChildren();
-  for(var i = 0; i < children.length; i++) {
-      for(var j = 0; j < 5; j++) {
-          children[i].addChild(new Node('second level child ' + j));
-      }
-  }
-  console.log(root);
-  </script> -->
-
 </html>

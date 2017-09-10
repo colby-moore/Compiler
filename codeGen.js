@@ -54,18 +54,19 @@ function codeGenInitiate(){
           arrayForVarDecl.push(declarations);
           console.log("Looking for scope");
           console.log(arrayForVarDecl);
-          arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"00")
+          arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"00");
 
         }
         else if (ast.cur.children[nameCount].children[0].name == "string") {
           console.log("STRING");
           arrayForVarDecl.push(declarations);
           console.log(arrayForVarDecl);
+          arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"00");
         }
         else if (ast.cur.children[nameCount].children[0].name == "boolean"){
           console.log("BOOLEAN");
           arrayForVarDecl.push(declarations);
-          arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"00")
+          arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"00");
         }
         tempCounter++;
       }
@@ -433,12 +434,13 @@ function testerBlock(nameCount, nameCount2, tempCounter, curScope, blockCounter)
       console.log("STRING");
       arrayForVarDecl.push(declarations);
       console.log(arrayForVarDecl);
+      arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"00");
     }
     else if (ast.cur.children[nameCount].children[nameCount2].children[0].name  == "boolean"){
       console.log("BOOLEAN");
       arrayForVarDecl.push(declarations);
       console.log(arrayForVarDecl);
-      arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"00")
+      arrayForCodeGen.push("A9","00","8D","T"+tempCounter,"00");
     }
     // tempCounter++;
   }
