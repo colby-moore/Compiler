@@ -1,5 +1,18 @@
 #input, #output, #parse, #ast, #symbolCheck, #symbolTable, #codeGeneration  {
   border-radius: 4% ;
+  background-color: #ddd;
+}
+
+#page-container{
+    background-color: #333;
+}
+
+.row{
+    margin-bottom: 10px;
+}
+
+#header-row{
+    margin-bottom: 0px !important;
 }
 
 .header {
@@ -9,6 +22,10 @@
     max-width: 100%;
     width: 100%;
     background-color: black;
+}
+
+.compile{
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
@@ -24,6 +41,8 @@
 }
 
 .container {
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
     width: 100%;
 }
@@ -55,7 +74,7 @@ button {
     color: #FFFFFF;
     text-align: center;
     font-size: 28px;
-    padding: 20px;
+    padding: 10px;
     width: 180px;
     transition: all 0.5s;
     cursor: pointer;
@@ -87,6 +106,15 @@ button {
     right: 0;
 }
 
+.button-container{
+    display: flex;
+    justify-content: flex-start;
+}
+.button-container button{
+    display: block;
+    margin: 0 auto !important;
+}
+
 .testCases:first-child{
     margin-left: 37.5px !important;
 }
@@ -102,8 +130,6 @@ button {
     color: #FFFFFF;
     text-align: center;
     font-size: 20px;
-    padding: ;
-    height: 40px;
     width: 80px;
     transition: all 0.5s;
     cursor: pointer;
@@ -136,7 +162,7 @@ button {
 }
 
 .testCasesBad:first-child{
-    margin-left: 37.5px !important;
+    
 }
 
 .testCasesBad {
@@ -149,8 +175,6 @@ button {
     color: #FFFFFF;
     text-align: center;
     font-size: 20px;
-    padding: ;
-    height: 40px;
     width: 80px;
     transition: all 0.5s;
     cursor: pointer;
