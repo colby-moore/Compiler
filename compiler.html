@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>compiler</title>
@@ -11,10 +10,7 @@
     <script src="parser.js"></script>
     <script src="syntaxTreeAbstract.js"></script>
     <script src="codeGen.js"></script>
-
-
 </head>
-
 <body>
     <div class="row" id="header-row">
         <div class="col-md-12 header">
@@ -24,19 +20,25 @@
     <div class="container-fluid" id="page-container">
         <div class="row">
             <div class="compile col-md-12">
-                <button class="clickMe" onclick="lexerRun();"><span>COMPILE</span></button>
+                <button class="clickMe" onclick="lexerRun();">
+                    <span>COMPILE</span>
+                </button>
             </div>
         </div>
         <div class="row">
-            <div class="container-fluid col-md-12">
-                <div class="col-md-3"></div>
-                <div class="button-container col-md-6">
-                    <button class="testCases clickMe" onclick="testCaseOne();"><span>Test</span></button>
-                    <button class="testCases clickMe" onclick="testCaseTwo();"><span>Test</span></button>
-                    <button class="testCasesBad clickMe" onclick="testCaseThree();"><span>Test</span></button>
-                    <button class="testCasesBad clickMe" onclick="testCaseFour();"><span>Test</span></button>
-                </div>
-                <div class="col-md-3"></div>
+            <div class="button-container container-fluid col-md-12">
+                <button class="testCases clickMe" onclick="testCaseOne();">
+                    <span>Test</span>
+                </button>
+                <button class="testCases clickMe" onclick="testCaseTwo();">
+                    <span>Test</span>
+                </button>
+                <button class="testCasesBad clickMe" onclick="testCaseThree();">
+                    <span>Test</span>
+                </button>
+                <button class="testCasesBad clickMe" onclick="testCaseFour();">
+                    <span>Test</span>
+                </button>
             </div>
         </div>
         <div class="container col-md-3">
@@ -56,20 +58,20 @@
                 <label for="comment">Parse:</label>
                 <textarea id="parse" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
-    
+
             <div class="form-group box2 col-md-5">
                 <label for="comment">AST:</label>
                 <textarea id="ast" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
             <div class="hi col-md-1">
-    
+
             </div>
             <div class="form-group box2 col-md-5">
                 <label for="comment">Type/Scope Checking:</label>
                 <textarea id="symbolCheck" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
         </div>
-        
+
         <div class="container col-md-3">
             <div class="form-group box2 col-md-9">
                 <!-- <label for="comment">Input:</label>
@@ -88,14 +90,17 @@
                 <textarea id="codeGeneration" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
         </div>
-    
-    
+
+
         <div class="hi col-md-3"></div>
-    
-    
+
+
         <div class="col-md-12 footer">
-            <h5><a href="http://labouseur.com/courses/compilers/grammar.pdf">Link to our grammar</a></h5></div>
-    
+            <h5>
+                <a href="http://labouseur.com/courses/compilers/grammar.pdf">Link to our grammar</a>
+            </h5>
+        </div>
+
     </div>
 
 
@@ -107,4 +112,5 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 </body>
+
 </html>

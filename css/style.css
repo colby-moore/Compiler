@@ -1,213 +1,204 @@
-#input, #output, #parse, #ast, #symbolCheck, #symbolTable, #codeGeneration  {
-  border-radius: 4% ;
+#input,
+#output,
+#parse,
+#ast,
+#symbolCheck,
+#symbolTable,
+#codeGeneration {
+  border-radius: 4%;
   background-color: #ddd;
 }
 
-#page-container{
-    background-color: #333;
+#page-container {
+  background-color: #333;
 }
 
-.row{
-    margin-bottom: 10px;
+.row {
+  margin-bottom: 10px;
 }
 
-#header-row{
-    margin-bottom: 0px !important;
+#header-row {
+  margin-bottom: 0px !important;
 }
 
 .header {
-    height: 90px;
-    color: white;
-    text-align: center;
-    max-width: 100%;
-    width: 100%;
-    background-color: black;
+  height: 90px;
+  color: white;
+  text-align: center;
+  max-width: 100%;
+  width: 100%;
+  background-color: black;
 }
 
-.compile{
-    margin-top: 20px;
-    margin-bottom: 20px;
+.compile {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .header h3 {
-    letter-spacing: .05em;
-    text-transform: uppercase;
-    font-weight: 800;
-    font-size: 1.35em;
-    line-height: 87px;
-    font-family: 'Raleway', sans-serif;
-    margin: 0px;
-    color: white;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 1.35em;
+  line-height: 87px;
+  font-family: "Raleway", sans-serif;
+  margin: 0px;
+  color: white;
 }
 
 .container {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
 }
 
 .container h2 {
-    border-bottom: 3px solid #efefef;
+  border-bottom: 3px solid #efefef;
 }
 
 .box1 {
-    margin-left: 0px;
+  margin-left: 0px;
 }
 
 .box2 {
-    text-align: center;
-    margin-left: 0px;
+  text-align: center;
+  margin-left: 0px;
 }
 
 button {
-    text-align: center !important;
-    margin: 0 auto !important;
-    display: block;
+  text-align: center !important;
+  margin: 0 auto !important;
+  display: block;
 }
 
 .clickMe {
-    font-family: 'Raleway', sans-serif;
-    border-radius: 4px;
-    background-color: #f4511e;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 28px;
-    padding: 10px;
-    width: 180px;
-    transition: all 0.5s;
-    cursor: pointer;
-    margin: 5px;
+  font-family: "Raleway", sans-serif;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 28px;
+  padding: 10px;
+  width: 180px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
 
 .clickMe span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
 .clickMe span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
 }
 
 .clickMe:hover span {
-    padding-right: 25px;
+  padding-right: 25px;
 }
 
 .clickMe:hover span:after {
-    opacity: 1;
-    right: 0;
+  opacity: 1;
+  right: 0;
 }
 
-.button-container{
-    display: flex;
-    justify-content: flex-start;
-}
-.button-container button{
-    display: block;
-    margin: 0 auto !important;
-}
-
-.testCases:first-child{
-    margin-left: 37.5px !important;
+.button-container {
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
 
 .testCases {
-    margin-bottom: 5px !important;
-    margin-right: 10px !important;
-    font-family: 'Raleway', sans-serif;
-    float: left;
-    border-radius: 4px;
-    background-color: #f4511e;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 20px;
-    width: 80px;
-    transition: all 0.5s;
-    cursor: pointer;
-    margin: 5px;
+  margin-bottom: 5px !important;
+  font-family: "Raleway", sans-serif;
+  float: left;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 20px;
+  width: 80px;
+  transition: all 0.5s;
+  cursor: pointer;
 }
 
 .testCases span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
 .testCases span:after {
-    content: '✔';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
+  content: "✔";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
 }
 
 .testCases:hover span {
-    padding-right: 25px;
+  padding-right: 25px;
 }
 
 .testCases:hover span:after {
-    opacity: 1;
-    right: 0;
-}
-
-.testCasesBad:first-child{
-    
+  opacity: 1;
+  right: 0;
 }
 
 .testCasesBad {
-    margin-right: 10px !important;
-    font-family: 'Raleway', sans-serif;
-    float: left;
-    border-radius: 4px;
-    background-color: #f4511e;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 20px;
-    width: 80px;
-    transition: all 0.5s;
-    cursor: pointer;
-    margin: 5px;
+  margin-bottom: 5px !important;
+  font-family: "Raleway", sans-serif;
+  float: left;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 20px;
+  width: 80px;
+  transition: all 0.5s;
+  cursor: pointer;
 }
 
 .testCasesBad span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
 .testCasesBad span:after {
-    content: '✗';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
+  content: "✗";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
 }
 
 .testCasesBad:hover span {
-    padding-right: 25px;
+  padding-right: 25px;
 }
 
 .testCasesBad:hover span:after {
-    opacity: 1;
-    right: 0;
+  opacity: 1;
+  right: 0;
 }
 
-
 .footer {
-    margin-bottom: 20px;
-    text-align: center;
+  margin-bottom: 20px;
+  text-align: center;
 }
