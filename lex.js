@@ -61,9 +61,17 @@ function lexer(isToken) {
     programCounter = 1;
     line_number = 1;
     var input_text = document.getElementById('input').value;
+    console.log(input_text);
 
     console.log("Scanning " + programCounter);
-    document.getElementById('output').value += "scanning programs " + '\n';
+
+    if(input_text == ""){
+        document.getElementById('output').value += "Please enter code to be compiled " + '\n';
+    }
+    else{
+        document.getElementById('output').value += "scanning programs " + '\n';
+    }
+    
 
 
     for (lexerBegin = 0; lexerBegin < input_text.length; lexerBegin++) {

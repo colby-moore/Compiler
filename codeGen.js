@@ -195,8 +195,8 @@ function codeGenInitiate(){
           // console.log(arrayForCodeGen);
         }
         else if (arrayForCodeGen.length > 256) {
-          document.getElementById('codeGeneration').value += 'ERROR: Exceding memory limit.'
-          throw new Error("ERROR: Exceding memory limit.");
+          document.getElementById('codeGeneration').value += 'ERROR: Exceeding memory limit. Please refresh'
+          throw new Error("ERROR: Exceeding memory limit.");
         }
       }
       console.log(ast.cur.children[nameCount].name);

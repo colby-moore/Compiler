@@ -12,97 +12,69 @@
     <script src="codeGen.js"></script>
 </head>
 <body>
-    <div class="row" id="header-row">
-        <div class="col-md-12 header">
-            <h3>Colby's Bitchin Compiler</h3>
+    <div id="header-row">
+        <div class="header">
+            <h3>Colby's Compiler</h3>
+            <div class="button-container">
+                <button class="test-cases" onclick="testCaseOne();">
+                    <span>Success Case 1 ✔</span>
+                </button>
+                <button class="test-cases" onclick="testCaseTwo();">
+                    <span>Success Case 2 ✔</span>
+                </button>
+                <button class="test-cases" onclick="testCaseThree();">
+                    <span>Failure Case 1 X</span>
+                </button>
+                <button class="test-cases" onclick="testCaseFour();">
+                    <span>Failure Case 2 X</span>
+                </button>
+            </div>
         </div>
     </div>
     <div class="container-fluid" id="page-container">
-        <div class="row">
-            <div class="compile col-md-12">
-                <button class="clickMe" onclick="lexerRun();">
-                    <span>COMPILE</span>
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="button-container container-fluid col-md-4">
-                <button class="testCases clickMe" onclick="testCaseOne();">
-                    <span>Test</span>
-                </button>
-                <button class="testCases clickMe" onclick="testCaseTwo();">
-                    <span>Test</span>
-                </button>
-                <button class="testCasesBad clickMe" onclick="testCaseThree();">
-                    <span>Test</span>
-                </button>
-                <button class="testCasesBad clickMe" onclick="testCaseFour();">
-                    <span>Test</span>
-                </button>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
         <div class="container col-md-3">
-            <div class="form-group box2 col-md-9">
+            <div class="form-group col-md-12">
                 <label for="comment">Input:</label>
                 <textarea id="input" class="form-control" rows="24" style="resize: none" placeholder="Input text..."></textarea>
             </div>
+            <div class="compile col-md-12">
+                <button class="clickMe" onclick="lexerRun();">
+                    <span>Compile <img src="./icons/icons8-gears-64.png"></span>
+                </button>
+                <button class="clickMe refresh" onclick="location.reload();">
+                    <span>&#x1f5d8;</span>
+                </button>
+            </div>
+            <div class="col-md-12 footer">
+                <a class="footer-link" target="_blank" href="./pdfs/grammar.pdf">Link to our grammar</a><br><a target="_blank" href="https://icons8.com/icon/nCKEci7LXVtR/gears">Gears</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+            </div>
         </div>
         <div class="container col-md-9">
-            <div class="form-group box2 col-md-5">
-                <label for="comment">Lex:</label>
+            <div class="form-group box">
+                <label for="comment">Lexer:</label>
                 <textarea id="output" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
-            <div class="hi col-md-1">
-            </div>
-            <div class="form-group box2 col-md-5">
-                <label for="comment">Parse:</label>
+            <div class="form-group box">
+                <label for="comment">Parser:</label>
                 <textarea id="parse" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
-
-            <div class="form-group box2 col-md-5">
-                <label for="comment">AST:</label>
+            <div class="form-group box">
+                <label for="comment">Abstract Syntax Tree:</label>
                 <textarea id="ast" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
-            <div class="hi col-md-1">
-
-            </div>
-            <div class="form-group box2 col-md-5">
+            <div class="form-group box">
                 <label for="comment">Type/Scope Checking:</label>
                 <textarea id="symbolCheck" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
-        </div>
-
-        <div class="container col-md-3">
-            <div class="form-group box2 col-md-9">
-                <!-- <label for="comment">Input:</label>
-                <textarea id="input" class="form-control" rows="24" style="resize: none" placeholder="Input text..."></textarea> -->
-            </div>
-        </div>
-        <div class="container col-md-9">
-            <div class="form-group box2 col-md-5">
+            <div class="form-group box">
                 <label for="comment">Symbol Table:</label>
                 <textarea id="symbolTable" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
-            <div class="hi col-md-1">
-            </div>
-            <div class="form-group box2 col-md-5">
+            <div class="form-group box">
                 <label for="comment">Code Generation:</label>
                 <textarea id="codeGeneration" class="form-control" rows="11" style="resize: none" placeholder="Output text..."></textarea>
             </div>
         </div>
-
-
-        <div class="hi col-md-3"></div>
-
-
-        <div class="col-md-12 footer">
-            <h5>
-                <a href="http://labouseur.com/courses/compilers/grammar.pdf">Link to our grammar</a>
-            </h5>
-        </div>
-
     </div>
 
 
